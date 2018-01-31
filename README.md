@@ -1,8 +1,5 @@
 # jawf-geotiff-generator
 
-JAWF GeoTIFF Generator Readme
-======
-
 Content coming soon.
 
 NOAA Disclaimer
