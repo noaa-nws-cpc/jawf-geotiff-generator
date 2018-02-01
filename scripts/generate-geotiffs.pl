@@ -237,12 +237,15 @@ JOB: foreach my $job (@jobs) {
     # --- Parse jobs settings into GrADS script args ---
 
     my($ctlObs,$obsVar,$ctlClimo,$climoVar,$nFields,$fields,$dateOffset,$period,$archiveRoot,$fileroot) = split(/\|/,$job);
-    my $endDay = $day + int($dateOffset);
-    my $nDays   = undef;
+    my $targetDay = $day + int($dateOffset);
+    my($start, $end);
 
     if($period =~ /^[+-]?\d+$/) {
 
-        if($period > 0) { $nDays = $period; }
+        if($period > 0) {
+            $start = $targetDay - $period;
+            $end   = $targetDay;
+        }
         else            {
             warn "   The setting for period: $period is invalid - skipping job...\n";
             $failedJobs++;
@@ -252,16 +255,20 @@ JOB: foreach my $job (@jobs) {
 
     }
     elsif($period =~ /month/) {
-        my $month = CPC::Month->new($endDay->Mnum,$endDay->Year);
-        $nDays    = $month->Length;
+        my $month = CPC::Month->new($targetDay->Mnum,$targetDay->Year);
+        $start    = CPC::Day->new(int($month).'01');
+        $end      = CPC::Day->new(int($month).$month->Length);
     }
     elsif($period =~ /season/) {
-        my $month = CPC::Month->new($endDay->Mnum,$endDay->Year);
-        $nDays    = $month->Length + ($month-1)->Length + ($month-2)->Length;
+        my $month3 = CPC::Month->new($targetDay->Mnum,$targetDay->Year);
+        my $month1 = $month3 - 2;
+        $start     = CPC::Day->new(int($month1).'01');
+        $end       = CPC::Day->new(int($month3).$month3->Length);
     }
     elsif($period =~ /year/) {
-        my $year  = $endDay->Year;
-        $nDays    = CPC::Day->new($year,12,31) - CPC::Day->new($year,1,1) + 1;
+        my $year  = $targetDay->Year;
+        $start    = CPC::Day->new($year.'0101');
+        $end      = CPC::Day->new($year.'1231');
     }
     else {
         warn "   The setting for period: $period is invalid - skipping job...\n";
@@ -270,7 +277,7 @@ JOB: foreach my $job (@jobs) {
         next JOB;
     }
 
-    my $dateDirs    = date_dirs($endDay);
+    my $dateDirs    = date_dirs($end);
     my $archiveDir  = "$archiveRoot/$dateDirs";
     my $geotiffRoot = "$archiveDir/$fileroot";
 
@@ -280,7 +287,7 @@ JOB: foreach my $job (@jobs) {
 
     # --- Use GrADS to create the image ---
 
-    my $gradsErr = grads("run generate_geotiffs.gs $ctlObs $obsVar $ctlClimo $climoVar $nFields $fields $dateOffset $nDays $geotiffRoot");
+    my $gradsErr = grads("run generate_geotiffs.gs $ctlObs $obsVar $ctlClimo $climoVar $nFields $fields $start $end $geotiffRoot");
 
     # --- Create a list of the expected output geotiff files that were created in the archive ---
 
