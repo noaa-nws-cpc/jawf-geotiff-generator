@@ -89,6 +89,7 @@ use Pod::Usage;
 
 use CPC::Day;
 use CPC::Env qw(CheckENV RemoveSlash);
+use CPC::Month;
 use CPC::SpawnGrads qw(grads);
 
 # --- Establish script environment ---
@@ -219,6 +220,101 @@ my $failedJobs = 0;
 my $jobCount   = 0;
 
 JOB: foreach my $job (@jobs) {
+    $jobCount++;
+    print "Generating geotiff $jobCount out of of $njobs\n";
+
+    # --- Replace allowed variables with the preset values defined above in the job string ---
+
+    $job =~ s/\$(\w+)/exists $jobsFileVars{$1} ? $jobsFileVars{$1} : 'abcdBLORTdcba'/eg;
+
+    if($job =~ /abcdBLORTdcba/) {
+        warn "   Variable found in the job settings that was not on list of allowed vars - skipping job...\n";
+        $failedJobs++;
+        if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
+        next JOB;
+    }
+
+    # --- Parse jobs settings into GrADS script args ---
+
+    my($ctlObs,$obsVar,$ctlClimo,$climoVar,$nFields,$fields,$dateOffset,$period,$archiveRoot,$fileroot) = split(/\|/,$job);
+    my $endDay = $day + int($dateOffset);
+    my $nDays   = undef;
+
+    if($period =~ /^[+-]?\d+$/) {
+
+        if($period > 0) { $nDays = $period; }
+        else            {
+            warn "   The setting for period: $period is invalid - skipping job...\n";
+            $failedJobs++;
+            if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
+            next JOB;
+        }
+
+    }
+    elsif($period =~ /month/) {
+        my $month = CPC::Month->new($endDay->Mnum,$endDay->Year);
+        $nDays    = $month->Length;
+    }
+    elsif($period =~ /season/) {
+        my $month = CPC::Month->new($endDay->Mnum,$endDay->Year);
+        $nDays    = $month->Length + ($month-1)->Length + ($month-2)->Length;
+    }
+    elsif($period =~ /year/) {
+        my $year  = $endDay->Year;
+        $nDays    = CPC::Day->new($year,12,31) - CPC::Day->new($year,1,1) + 1;
+    }
+    else {
+        warn "   The setting for period: $period is invalid - skipping job...\n";
+        $failedJobs++;
+        if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
+        next JOB;
+    }
+
+    my $dateDirs    = date_dirs($endDay);
+    my $archiveDir  = "$archiveRoot/$dateDirs";
+    my $geotiffRoot = "$archiveDir/$fileroot";
+
+    # --- Create the archive directory if it does not exist yet ---
+
+    unless(-d $archiveDir) { mkpath($archiveDir) or die "Could not create directory $archiveDir - check your permissions - exiting"; }
+
+    # --- Use GrADS to create the image ---
+
+    my $gradsErr = grads("run generate_geotiffs.gs $ctlObs $obsVar $ctlClimo $climoVar $nFields $fields $dateOffset $nDays $geotiffRoot");
+
+    # --- Create a list of the expected output geotiff files that were created in the archive ---
+
+    my @fields   = split(/ /,$fields);
+    my @geotiffs;
+    foreach my $field (@fields) { push(@geotiffs,$geotiffRoot."_$field.tif"); }
+
+    # --- Check the output from GrADS for any problems and delete the geotiffs if one found ---
+
+    if($gradsErr) {
+        warn  "\n$gradsErr\n";
+        if(openhandle(*FAILEDJOBS)) { print FAILEDJOBS "$job\n"; }
+        foreach my $geotiff (@geotiffs) { if(-s $geotiff) { unlink($geotiff); } }
+        $failedJobs++;
+    }
+    else {
+        my $missingGeoTIFF = 0;
+
+        foreach my $geotiff (@geotiffs) {
+
+            if(-s $geotiff) { print "   $geotiff created!\n"; }
+            else            {
+                $missingGeoTIFF++;
+                warn "   WARNING: No GrADS errors found but $geotiff not created\n";
+            }
+
+        }
+
+        if($missingGeoTIFF) {
+            if(openhandle(*FAILEDJOBS)) { print FAILEDJOBS "$job\n"; }
+            $failedJobs++
+        }
+
+    }
 
 }  # :JOB
 
@@ -226,7 +322,7 @@ JOB: foreach my $job (@jobs) {
 
 if($failedJobs) {
     warn "\n";
-    die "Number of failed geotiff jobs: $failedJobs\n";
+    die "Number of failed geotiff generation jobs: $failedJobs\n";
 }
 
 # --- Content to be added above ---
