@@ -170,6 +170,16 @@ END {
 
 # --- Make sure option -jobs was passed with a valid filename ---
 
+unless($jobsFile) {
+
+    pod2usage( {
+        -message => "\nOption --jobs must be supplied, please try again or use the -help or -manaul options for more help\n",
+        -exitval => 1,
+        -verbose => 0,
+    } );
+
+}
+
 unless(-s $jobsFile) {
 
     pod2usage( {
@@ -181,6 +191,8 @@ unless(-s $jobsFile) {
 }
 
 # --- Content to be added below ---
+
+
 
 # --- Content to be added above ---
 
