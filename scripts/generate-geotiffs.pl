@@ -190,9 +190,44 @@ unless(-s $jobsFile) {
 
 }
 
-# --- Content to be added below ---
+# --- Set up a hash of allowed variables to parse from the jobs file ---
 
+my %jobsFileVars = (
+    DATA_IN    => $DATA_IN,
+    DATA_OUT   => $DATA_OUT,
+    APP_PATH   => $APP_PATH,
+    DEFAULT_ARCHIVE => "$DATA_OUT/observations/land_air/all_ranges/global/jawf_geotiffs",
+);
 
+# --- Load the information from the jobs file into a jobs list ---
+
+open(JOBS,'<',$jobsFile) or die "Could not open $jobsFile for reading - $! - exiting";
+my @fileContents = <JOBS>; shift(@fileContents); chomp(@fileContents);
+my @jobs;
+# Strip out comment lines!
+foreach my $line (@fileContents) { push(@jobs,$line) unless(substr($line,0,1) eq '#'); }
+my $njobs = scalar(@jobs);
+close(JOBS);
+
+# --- Change the working directory to where the GrADS script will be invoked ---
+
+chdir("$APP_PATH/scripts") or die "Could not chdir to $APP_PATH/scripts! Reason: $@ - exiting";
+
+# --- Loop jobs ---
+
+my $failedJobs = 0;
+my $jobCount   = 0;
+
+JOB: foreach my $job (@jobs) {
+
+}  # :JOB
+
+# --- Exit with nonzero value if failed jobs detected during the run ---
+
+if($failedJobs) {
+    warn "\n";
+    die "Number of failed geotiff jobs: $failedJobs\n";
+}
 
 # --- Content to be added above ---
 
