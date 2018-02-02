@@ -238,13 +238,14 @@ JOB: foreach my $job (@jobs) {
 
     my($ctlObs,$obsVar,$ctlClimo,$climoVar,$nFields,$fields,$dateOffset,$period,$archiveRoot,$fileroot) = split(/\|/,$job);
     my $targetDay = $day + int($dateOffset);
-    my($start, $end);
+    my($start, $end, $dateDirs);
 
     if($period =~ /^[+-]?\d+$/) {
 
         if($period > 0) {
             $start = $targetDay - $period;
             $end   = $targetDay;
+            $dateDirs = join('/',$end->Year,sprintf("%02d",$end->Mnum),sprintf("%02d",$end->Mday));
         }
         else            {
             warn "   The setting for period: $period is invalid - skipping job...\n";
@@ -258,17 +259,20 @@ JOB: foreach my $job (@jobs) {
         my $month = CPC::Month->new($targetDay->Mnum,$targetDay->Year);
         $start    = CPC::Day->new(int($month).'01');
         $end      = CPC::Day->new(int($month).$month->Length);
+	$dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
     }
     elsif($period =~ /season/) {
         my $month3 = CPC::Month->new($targetDay->Mnum,$targetDay->Year);
         my $month1 = $month3 - 2;
         $start     = CPC::Day->new(int($month1).'01');
         $end       = CPC::Day->new(int($month3).$month3->Length);
+        $dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
     }
     elsif($period =~ /year/) {
         my $year  = $targetDay->Year;
         $start    = CPC::Day->new($year.'0101');
         $end      = CPC::Day->new($year.'1231');
+        $dateDirs = $end->Year;
     }
     else {
         warn "   The setting for period: $period is invalid - skipping job...\n";
@@ -277,7 +281,6 @@ JOB: foreach my $job (@jobs) {
         next JOB;
     }
 
-    my $dateDirs    = date_dirs($end);
     my $archiveDir  = "$archiveRoot/$dateDirs";
     my $geotiffRoot = "$archiveDir/$fileroot";
 
@@ -330,16 +333,6 @@ JOB: foreach my $job (@jobs) {
 if($failedJobs) {
     warn "\n";
     die "Number of failed geotiff generation jobs: $failedJobs\n";
-}
-
-# --- Content to be added above ---
-
-sub date_dirs {
-    my $day  = shift;
-    my $yyyy = $day->Year();
-    my $mm   = sprintf("%02d",$day->Mnum());
-    my $dd   = sprintf("%02d",$day->Mday());
-    return join('/',$yyyy,$mm,$dd);
 }
 
 exit 0;
