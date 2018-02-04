@@ -14,5 +14,8 @@ Overview
 Other Documents
 ---------------
 
+- [How to Install](HOW-TO-INSTALL.md)
+- [README](../README.md)
+
 Steps to Run
 ---------------
