@@ -19,7 +19,7 @@ Overview
 Other Documents
 ---------------
 
-- [How to install](docs/HOW-TO-INSTALL.md)
+- [How to Install](docs/HOW-TO-INSTALL.md)
 - [How to Run](docs/HOW-TO-RUN.md)
 
 NOAA Disclaimer
