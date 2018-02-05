@@ -12,7 +12,7 @@ Other Documents
 ---------------
 
 - [README](../README.md)
-- [How to run](HOW-TO-RUN.md)
+- [How to Run](HOW-TO-RUN.md)
 
 Prerequisites
 ---------------
