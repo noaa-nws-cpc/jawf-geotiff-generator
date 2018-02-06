@@ -194,9 +194,11 @@ unless(-s $jobsFile) {
 # --- Set up a hash of allowed variables to parse from the jobs file ---
 
 my %jobsFileVars = (
-    DATA_IN    => $DATA_IN,
-    DATA_OUT   => $DATA_OUT,
-    APP_PATH   => $APP_PATH,
+    DATA_IN         => $DATA_IN,
+    DATA_OUT        => $DATA_OUT,
+    APP_PATH        => $APP_PATH,
+    PRCP_ARCHIVE    => "$DATA_OUT",
+    TEMP_ARCHIVE    => "$DATA_IN/cwlinks/temp/GLOBAL/lo_res",
     DEFAULT_ARCHIVE => "$DATA_OUT/observations/land_air/all_ranges/global/jawf_geotiffs",
 );
 
