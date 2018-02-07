@@ -1,0 +1,6 @@
+gradsScript|ctlObs|ctlClimo|dateOffset|period|archiveRoot|fileRoot
+#
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_0.5deg.lnx.ctl|$APP_PATH/climo/CPC_GLOBAL_TMAX_0.5deg.clim19812010.lnx.har06.ctl $APP_PATH/climo/CPC_GLOBAL_TMIN_0.5deg.clim19812010.lnx.har06.ctl|-2|1|$DEFAULT_ARCHIVE|temperature_1day
+#
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_0.5deg.lnx.ctl|$APP_PATH/climo/CPC_GLOBAL_TMAX_0.5deg.clim19812010.lnx.har06.ctl $APP_PATH/climo/CPC_GLOBAL_TMIN_0.5deg.clim19812010.lnx.har06.ctl|-2|7|$DEFAULT_ARCHIVE|temperature_7day
+#
