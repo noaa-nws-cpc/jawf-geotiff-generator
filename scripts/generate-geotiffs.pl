@@ -162,7 +162,7 @@ unless(CPC::Day->new() >= $day) { die "Option --date=$date is too recent - exiti
 
 if($failed) {
     open(FAILEDJOBS,'>',$failed) or die "Could not open $failed for writing - $! - exiting";
-    print FAILEDJOBS 'ctlObs|obsVar|ctlClimo|climoVar|regrid|nFields|fields|dateOffset|period|archiveRoot|fileRoot'."\n";
+    print FAILEDJOBS 'gradsScript|ctlObs|obsVar|ctlClimo|climoVar|regrid|nFields|fields|dateOffset|period|archiveRoot|fileRoot'."\n";
 }
 
 END {
@@ -238,7 +238,7 @@ JOB: foreach my $job (@jobs) {
 
     # --- Parse jobs settings into GrADS script args ---
 
-    my($ctlObs,$obsVar,$ctlClimo,$climoVar,$regrid,$nFields,$fields,$dateOffset,$period,$archiveRoot,$fileroot) = split(/\|/,$job);
+    my($gradsScript,$ctlObs,$obsVar,$ctlClimo,$climoVar,$regrid,$nFields,$fields,$dateOffset,$period,$archiveRoot,$fileroot) = split(/\|/,$job);
     my $targetDay = $day + int($dateOffset);
     my($start, $end, $dateDirs);
 
@@ -292,7 +292,7 @@ JOB: foreach my $job (@jobs) {
 
     # --- Use GrADS to create the image ---
 
-    my $gradsErr = grads("run generate_geotiffs.gs $ctlObs $obsVar $ctlClimo $climoVar $regrid $nFields $fields $start $end $geotiffRoot");
+    my $gradsErr = grads("run $gradsScript $ctlObs $obsVar $ctlClimo $climoVar $regrid $nFields $fields $start $end $geotiffRoot");
 
     # --- Create a list of the expected output geotiff files that were created in the archive ---
 
