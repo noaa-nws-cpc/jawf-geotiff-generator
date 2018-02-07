@@ -3,7 +3,7 @@
 *
 * Usage:
 *   cd ${JAWF_GEOTIFFS}/scripts
-*   grads -blc "run make-temperature-geotiffs.gs ctlObs ctlClimo nFields fields start end output
+*   grads -blc "run make-temperature-geotiffs.gs ctlObs ctlClimo start end output
 *
 *   Arguments:
 *       ctlObs:      Filename of the GrADS data descriptor file for the observations dataset
@@ -19,12 +19,12 @@
 *   3. The dataset described by ctlClimoMin must have the variable tmin
 *   4. The climatology ctl files should use templating in the same format as the obs
 *   5. The following 6 products are created by this script:
-*       [output]_tmax.tif       - GeoTIFF grid of maximum temperature during the period
-*       [output]_tmax-anom.tif  - GeoTIFF grid of maximum temperature anomaly during the period
-*       [output]_tmin.tif       - GeoTIFF grid of minimum temperature during the period
-*       [output]_tmin-anom.tif  - GeoTIFF grid of minimum temperature anomaly during the period
-*       [output]_tmean.tif      - GeoTIFF grid of period mean temperature during the period
-*       [output]_tmean-anom.tif - GeoTIFF grid of period mean temperature anomaly during the period
+*       [output]_tmax.tif       - GeoTIFF grid of maximum temperature observed during the period
+*       [output]_tmax-anom.tif  - GeoTIFF grid of maximum temperature anomaly observed during the period
+*       [output]_tmin.tif       - GeoTIFF grid of minimum temperature observed during the period
+*       [output]_tmin-anom.tif  - GeoTIFF grid of minimum temperature anomaly observed during the period
+*       [output]_tmean.tif      - GeoTIFF grid of period mean temperature observed during the period
+*       [output]_tmean-anom.tif - GeoTIFF grid of period mean temperature anomaly observed during the period
 *
 
 function geotiffs (args)
