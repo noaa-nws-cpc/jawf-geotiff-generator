@@ -223,7 +223,7 @@ my $jobCount   = 0;
 
 JOB: foreach my $job (@jobs) {
     $jobCount++;
-    print "Generating geotiff $jobCount out of of $njobs\n";
+    print "Generating geotiffs for job $jobCount out of $njobs\n ";
 
     # --- Replace allowed variables with the preset values defined above in the job string ---
 
@@ -282,6 +282,8 @@ JOB: foreach my $job (@jobs) {
         if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
         next JOB;
     }
+
+    print "   Period defined as: $start to $end\n";
 
     my $archiveDir  = "$archiveRoot/$dateDirs";
     my $geotiffRoot = "$archiveDir/$fileroot";
