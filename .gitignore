@@ -1,0 +1,8 @@
+# GrADS data descriptor files and binary data files #
+###############
+*.ctl
+*.bin
+
+# Logs #
+###############
+*.log
