@@ -1,0 +1,6 @@
+gradsScript|ctlObs|ctlClimo|dateOffset|period|archiveRoot|fileRoot
+#
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_0.5deg.lnx.ctl|$APP_PATH/climos/temperature-climatology.ctl|-2|month|$DEFAULT_ARCHIVE|temperature_monthly
+#
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_0.5deg.lnx.ctl|$APP_PATH/climos/temperature-climatology.ctl|-2|seasonal|$DEFAULT_ARCHIVE|temperature_seasonal
+#
