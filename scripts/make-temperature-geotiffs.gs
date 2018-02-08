@@ -50,6 +50,59 @@ say 'start given:       'start
 say 'end given:         'end
 say 'output given:      'output
 
+* --- Obtain 0.25 degree reference grid for regridding ---
+
+'open grads_ref/global-0.25deg-gridref.ctl'
+'define qtrdeg=gridref'
+'close 1'
+
+* --- Open observations and climatology datasets ---
+
+'open 'ctlObs
+'open 'ctlClimo
+
+* --- Summarize obs and climos over the period ---
+
+'define maxobs=max(tmax.1,time='start',time='end')'
+'define minobs=max(tmin.1,time='start',time='end')'
+'define meanobs=ave((tmax.1+tmin.1)/2,time='start',time='end')'
+
+'define maxclimo=max(tmax.2,time='start',time='end')'
+'define minclimo=max(tmin.2,time='start',time='end')'
+'define meanclimo=ave(tmean.2,time='start',time='end')'
+
+* --- Compute anomalies ---
+
+'define maxanom=maxobs-maxclimo'
+'define minanom=minobs-minclimo'
+'define meananom=meanobs-meanclimo'
+
+* --- Generate regridded geotiffs ---
+
+'set gxout geotiff'
+'set geotiff 'output'_maximum'
+'d lterp(maxobs,qtrdeg)'
+
+'set gxout geotiff'
+'set geotiff 'output'_maximum-anomaly'
+'d lterp(maxanom,qtrdeg)'
+
+'set gxout geotiff'
+'set geotiff 'output'_minimum'
+'d lterp(minobs,qtrdeg)'
+
+'set gxout geotiff'
+'set geotiff 'output'_minimum-anomaly'
+'d lterp(minanom,qtrdeg)'
+
+'set gxout geotiff'
+'set geotiff 'output'_mean'
+'d lterp(meanobs,qtrdeg)'
+
+'set gxout geotiff'
+'set geotiff 'output'_mean-anomaly'
+'d lterp(meananom,qtrdeg)'
+
 * --- End GrADS script ---
 
 'reinit'
