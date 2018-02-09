@@ -14,7 +14,7 @@ generate-geotiffs - Switchboard for getting geotiff creation jobs to the GrADS s
 
  [OPTION]            [DESCRIPTION]                                         [VALUES]
 
- -date, -d           Date forecast data are available (default 2 days ago) yyyymmdd
+ -date, -d           Date to use to calculate the geotiff time period      yyyymmdd
  -failed, -f         Print failed job information to this file             filename
  -help, -h           Print usage message and exit
  -jobs, -j           Configuration file with jobs information              filename
@@ -29,6 +29,8 @@ Given a date, this script:
 =over 3
 
 =item * Reads GeoTIFF creation jobs information from a configuration file
+
+=item * Determines the time period to use based on the -date option and specifications in the jobs file
 
 =item * Sets up each job as a list of commands to pass to the GrADS script
 
