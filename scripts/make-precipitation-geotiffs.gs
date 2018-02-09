@@ -47,6 +47,35 @@ say 'start given:       'start
 say 'end given:         'end
 say 'output given:      'output
 
+* --- Open observations and climatology datasets ---
+
+'open 'ctlObs
+'open 'ctlClimo
+
+* --- Summarize obs and climos over the period ---
+
+'define prec=sum(bld.1,time='start',time='end')'
+'define precClim=sum(bld.2,time='start',time='end')'
+
+* --- Compute anomaly and percent of normal precipitation ---
+
+'define anomaly=prec-precClim'
+'define pctnml=100*(prec/precClim)'
+
+* --- Generate geotiffs ---
+
+'set gxout geotiff'
+'set geotiff 'output'_accumulated'
+'d prec'
+
+'set gxout geotiff'
+'set geotiff 'output'_anomaly'
+'d anomaly'
+
+'set gxout geotiff'
+'set geotiff 'output'_percent-normal'
+'d pctnml'
+
 * --- End GrADS script ---
 
 'reinit'
