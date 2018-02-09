@@ -200,7 +200,7 @@ my %jobsFileVars = (
     DATA_OUT        => $DATA_OUT,
     APP_PATH        => $APP_PATH,
     PRCP_ARCHIVE    => "$DATA_OUT",
-    TEMP_ARCHIVE    => "$DATA_IN/cwlinks/temp/GLOBAL/lo_res",
+    TEMP_ARCHIVE    => "$DATA_IN/cwlinks/temp/GLOBAL/hi_res",
     DEFAULT_ARCHIVE => "$DATA_OUT/observations/land_air/all_ranges/global/jawf_geotiffs",
 );
 
