@@ -151,7 +151,27 @@ eval   { $day = CPC::Day->new($date); };
 if($@) { die "Option --date=$date is invalid! Reason: $@ - exiting"; }
 unless(CPC::Day->new() >= $day) { die "Option --date=$date is too recent - exiting"; }
 
+# --- Identify source data ---
 
+my $sourceRoot = "/cpc/prcp/PRODUCTS/CMORPH_V0.x/BLD/0.25deg-DLY_EOD/GLB";
+my $yyyy       = $day->Year;
+my $mm         = sprintf("%02d",$day->Mnum);
+my $dd         = sprintf("%02d",$day->Mday);
+my $sourceFile  = "$sourceRoot/$yyyy/$yyyy$mm/CMORPH_V0.x_BLD_0.25deg-DLY_EOD_$yyyy$mm$dd.gz";
+
+# --- Update the archive ---
+
+my $destDir  = "$DATA_OUT/observations/land_air/short_range/global/precip/gauge-satellite-merged/$yyyy/$mm";
+unless(mkpath($destDir)) { die "Could not make directory $destDir - check permissions - exiting"; }
+my $destFile = "$destDir/CMORPH_v0.x_BLD_0.25deg-DLY_EOD_$yyyy$mm$dd";
+unless(copy($sourceFile,"$destFile.gz")) { die "Could not copy $sourceFile to $destFile.gz - exiting"; }
+my $failed   = system("gunzip $destFile.gz");
+if($failed) { die "Could not unzip $destFile.gz - exiting"; }
+
+# --- Check that archive file is there ---
+
+unless(-s $destFile) { die "Could not find $destFile in archive - exiting"; }
+print "$destFile written!\n";
 
 exit 0;
 
