@@ -73,9 +73,9 @@ say 'output given:      'output
 
 * --- Compute anomalies ---
 
-*'define maxanom=maxobs-maxclimo'
-*'define minanom=minobs-minclimo'
-*'define meananom=meanobs-meanclimo'
+'define maxanom=maxobs-maxclimo'
+'define minanom=minobs-minclimo'
+'define meananom=meanobs-meanclimo'
 
 * --- Generate regridded geotiffs ---
 
@@ -83,25 +83,25 @@ say 'output given:      'output
 'set geotiff 'output'_maximum'
 'd lterp(maxobs,qtrdeg,aave,1)'
 
-*'set gxout geotiff'
-*'set geotiff 'output'_maximum-anomaly'
-*'d lterp(maxanom,qtrdeg,aave,1)'
+'set gxout geotiff'
+'set geotiff 'output'_maximum-anomaly'
+'d lterp(maxanom,qtrdeg,aave,1)'
 
 'set gxout geotiff'
 'set geotiff 'output'_minimum'
 'd lterp(minobs,qtrdeg,aave,1)'
 
-*'set gxout geotiff'
-*'set geotiff 'output'_minimum-anomaly'
-*'d lterp(minanom,qtrdeg,aave,1)'
+'set gxout geotiff'
+'set geotiff 'output'_minimum-anomaly'
+'d lterp(minanom,qtrdeg,aave,1)'
 
 'set gxout geotiff'
 'set geotiff 'output'_mean'
 'd lterp(meanobs,qtrdeg,aave,1)'
 
-*'set gxout geotiff'
-*'set geotiff 'output'_mean-anomaly'
-*'d lterp(meananom,qtrdeg,aave,1)'
+'set gxout geotiff'
+'set geotiff 'output'_mean-anomaly'
+'d lterp(meananom,qtrdeg,aave,1)'
 
 * --- End GrADS script ---
 
