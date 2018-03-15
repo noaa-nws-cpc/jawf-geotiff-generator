@@ -1,6 +1,6 @@
 gradsScript|ctlObs|ctlClimo|dateOffset|period|archiveRoot|fileRoot
 #
-make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature-climatology.ctl|-2|1|$DEFAULT_ARCHIVE|temperature-hi-res_1day
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|-2|1|$DEFAULT_ARCHIVE|temperature_1day
 #
-make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature-climatology.ctl|-2|7|$DEFAULT_ARCHIVE|temperature-hi-res_7day
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|-2|7|$DEFAULT_ARCHIVE|temperature_7day
 #
