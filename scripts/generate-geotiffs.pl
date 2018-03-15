@@ -247,7 +247,7 @@ JOB: foreach my $job (@jobs) {
     if($period =~ /^[+-]?\d+$/) {
 
         if($period > 0) {
-            $start = $targetDay - $period;
+            $start = $targetDay - $period + 1;
             $end   = $targetDay;
             $dateDirs = join('/',$end->Year,sprintf("%02d",$end->Mnum),sprintf("%02d",$end->Mday));
         }
