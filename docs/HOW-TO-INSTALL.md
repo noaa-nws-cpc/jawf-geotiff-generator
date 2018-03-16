@@ -25,7 +25,7 @@ The following software must be installed on your system in order to install and 
 
 To see which version of GrADS your system uses by default, enter:
 
-    `$ grads -blc "quit"`
+    $ grads -blc "quit"
 
 Steps to Install
 ---------------
