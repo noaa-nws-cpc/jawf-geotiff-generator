@@ -117,7 +117,7 @@ BEGIN {
 
 # --- Get the command-line options ---
 
-my $date        = int(CPC::Day->new() - 2);
+my $date        = int(CPC::Day->new());
 my $failed      = undef;
 my $help        = undef;
 my $jobsFile    = undef;
