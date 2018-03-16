@@ -37,6 +37,7 @@ These instructions assume that the jawf-geotiff-generator app will be installed 
 1. Download jawf-geotiff-generator (this creates a directory called `jawf-geotff-generator`):
 
     `$ cd $HOME/apps`
+    
     `$ git clone https://github.com/noaa-nws-cpc/jawf-geotiff-generator.git`
 
 2. Install the application:
