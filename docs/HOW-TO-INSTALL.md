@@ -17,26 +17,18 @@ Other Documents
 Prerequisites
 ---------------
 
+The following software must be installed on your system in order to install and use jawf-geotiff-generator:
+
 - [git](https://git-scm.com/book/en/v1/Getting-Started-Installing-Git)
 - [CPC Perl5 Library](https://github.com/noaa-nws-cpc/cpc-perl5-lib)
 - [GrADS v2.0.2 or later](http://cola.gmu.edu/grads/downloads.php)
 
-Steps to Install
----------------
-
-### Install prerequisites
-
-1. See if you already have GrADS v.2.0.2 or later installed
+To see which version of GrADS your system uses by default, enter:
 
     `$ grads -blc "quit"`
 
-If not, download and install GrADS from the [COLA Web site](http://cola.gmu.edu/grads/downloads.php).
-
-2. See if you have the CPC Perl5 Library installed
-
-    `$ echo $PERL5LIB`
-
-If not, [install the CPC Perl5 Library](https://github.com/noaa-nws-cpc/cpc-perl5-lib).
+Steps to Install
+---------------
 
 ### Download and install jawf-geotiff-generator
 
