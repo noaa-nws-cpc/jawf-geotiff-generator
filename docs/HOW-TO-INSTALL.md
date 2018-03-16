@@ -42,6 +42,7 @@ These instructions assume that the jawf-geotiff-generator app will be installed 
 2. Install the application:
 
     `$ cd $HOME/apps/jawf-geotiff-generator`
+    
     `$ make install`
 
 3. Add the environment variable `$JAWF_GEOTIFFS` to `~/.profile_user` or whatever file you use to set up your profile:
