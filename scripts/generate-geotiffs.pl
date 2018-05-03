@@ -164,7 +164,7 @@ unless(CPC::Day->new() >= $day) { die "Option --date=$date is too recent - exiti
 
 if($failed) {
     open(FAILEDJOBS,'>',$failed) or die "Could not open $failed for writing - $! - exiting";
-    print FAILEDJOBS 'gradsScript|ctlObs|ctlClimo|dateOffset|period|archiveRoot|fileRoot'."\n";
+    print FAILEDJOBS 'gradsScript|ctlObs|ctlClimo|dateOffset|vartype|period|archiveRoot|fileRoot'."\n";
 }
 
 END {
@@ -240,7 +240,7 @@ JOB: foreach my $job (@jobs) {
 
     # --- Parse jobs settings into GrADS script args ---
 
-    my($gradsScript, $ctlObs, $ctlClimo, $dateOffset, $period, $archiveRoot, $fileroot) = split(/\|/,$job);
+    my($gradsScript, $ctlObs, $ctlClimo, $vartype $dateOffset, $period, $archiveRoot, $fileroot) = split(/\|/,$job);
     my $targetDay = $day + int($dateOffset);
     my($start, $end, $dateDirs);
 
@@ -296,17 +296,22 @@ JOB: foreach my $job (@jobs) {
 
     # --- Use GrADS to create the image ---
 
-    my $gradsErr = grads("run $gradsScript $ctlObs $ctlClimo $start $end $geotiffRoot");
+    my $gradsErr = grads("run $gradsScript $ctlObs $ctlClimo $vartype $start $end $geotiffRoot");
 
     # --- Create a list of the expected output geotiff files that were created in the archive ---
 
     my @geotiffs;
-    if($gradsScript =~ /temperature/) {
+    if($gradsScript =~ /temperature/ and $vartype =~ /maxmin/) {
         push(@geotiffs,
             $geotiffRoot.'_maximum.tif',
             $geotiffRoot.'_maximum-anomaly.tif',
             $geotiffRoot.'_minimum.tif',
             $geotiffRoot.'_minimum-anomaly.tif',
+            $geotiffRoot.'_mean.tif',
+            $geotiffRoot.'_mean-anomaly.tif');
+    }
+    elsif($gradsScript =~ /temperature/ and $vartype =~ /mean/) {
+        push(@geotiffs,
             $geotiffRoot.'_mean.tif',
             $geotiffRoot.'_mean-anomaly.tif');
     }
