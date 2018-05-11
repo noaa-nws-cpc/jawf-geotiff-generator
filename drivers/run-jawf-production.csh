@@ -2,7 +2,7 @@
 #
 #######################################################################################
 # File:              run-jawf-production.csh
-# Process Name:      JAWF-GEOTIFFS
+# App Name:          jawf-geotiff-generator
 # Functionality:     Driver script to generate geotiffs for JAWF operations
 # Author:            Adam Allgood
 # Date created:      2018-05-11
