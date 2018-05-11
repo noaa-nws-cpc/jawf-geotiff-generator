@@ -44,18 +44,18 @@ set failure = 0
 
 echo
 echo Generating daily and weekly JAWF geotiffs
-perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/daily-temperature.jobs
+perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/daily-temperature.jobs -d ${runDate}
 
 if ( $status != 0) then
     set failure = 1
 endif
 
-# --- Monthly geotiffs ---
+# --- Monthly and seasonal geotiffs ---
 
 if ( $mday == '02' ) then
     echo
-    echo Generating monthly geotiffs
-    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-temperature.jobs
+    echo Generating monthly and seasonal geotiffs
+    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-temperature.jobs -d ${runDate}
 
     if ( $status != 0 ) then
         set failure = 1
@@ -66,7 +66,7 @@ if ( $mday == '02' ) then
     if ($mnum == '01' ) then
         echo
         echo Generating annual geotiffs
-        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-temperature.jobs
+        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-temperature.jobs -d ${runDate}
 
         if ( $status != 0 ) then
             set failure = 1
