@@ -1,4 +1,4 @@
-Contributing to realtime-oni
+Contributing to jawf-geotiff-generator
 ===============
 
 Thank you for taking the time to contribute to this project! To get your contribution included as quickly and painlessly as possible, please read the following guidelines.
