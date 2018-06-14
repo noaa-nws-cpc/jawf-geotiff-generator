@@ -62,7 +62,7 @@ say 'output given:      'output
 * --- Compute anomaly and percent of normal precipitation ---
 
 'define anomaly=prec-precClim'
-'define pctnml=100*(prec/precClim)'
+'define pctnml=100*(prec/(precClim+0.0001))'
 
 * --- Generate geotiffs ---
 
