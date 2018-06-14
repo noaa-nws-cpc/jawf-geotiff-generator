@@ -8,6 +8,7 @@
 *   Arguments:
 *       ctlObs:      Filename of the GrADS data descriptor file for the observations dataset
 *       ctlClimo:    Filename of the GrADS data descriptor file for the precipitation climatology
+*       vartype:     Dummy variable - ignored by script but present to make consistent with temperature creator args
 *       start:       Start date of the observational period to utilize in DDMONYYYY format
 *       end:         End date of the observational period to utilize in DDMONYYYY format
 *       output:      Root of the output filenames to generate (_[product].tif will be appended)
@@ -28,9 +29,10 @@ function geotiffs (args)
 
 ctlObs=subwrd(args,1)
 ctlClimo=subwrd(args,2)
-start=subwrd(args,3)
-end=subwrd(args,4)
-output=subwrd(args,5)
+vartype=subwrd(args,3)
+start=subwrd(args,4)
+end=subwrd(args,5)
+output=subwrd(args,6)
 
 * --- Make sure all command arguments were passed ---
 
@@ -42,7 +44,7 @@ endif
 * --- Print out command line arguments for logging ---
 
 say 'ctlObs given:      'ctlObs
-say 'ctlClimo given:    'ctlClimoMax
+say 'ctlClimo given:    'ctlClimo
 say 'start given:       'start
 say 'end given:         'end
 say 'output given:      'output
