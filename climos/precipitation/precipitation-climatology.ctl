@@ -15,7 +15,7 @@ zdef 1 linear 1 1
 tdef 20000 linear 01jan2011 1dy
 *
 vars 1  
-rain     1  00 CMORPH V1.0 BLD Climo (mm/day)
+bld     1  00 CMORPH V1.0 BLD Climo (mm/day)
 ENDVARS
 *  1998-2017 climatology  
 *  summation of first 6 harmonics   
