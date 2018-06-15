@@ -1,14 +1,8 @@
 gradsScript|ctlObs|ctlClimo|dateOffset|period|archiveRoot|fileRoot
 #
-# Primary dataset
+# CMORPH-Gauge merge 0.25 degree dataset
 #
 make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|-2|1|$DEFAULT_ARCHIVE|precipitation_1day
 #
 make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|-2|7|$DEFAULT_ARCHIVE|precipitation_7day
-#
-# Secondary dataset - CPC CMORPH data - to use as an over-ocean underlay
-#
-#make-precipitation-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|-2|1|$DEFAULT_ARCHIVE|precipitation-ocean_1day
-#
-#make-precipitation-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|-2|7|$DEFAULT_ARCHIVE|precipitation-ocean_7day
 #
