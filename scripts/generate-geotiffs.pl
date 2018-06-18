@@ -4,7 +4,7 @@
 
 =head1 NAME
 
-generate-geotiffs - Switchboard for getting geotiff creation jobs to the GrADS script for production
+generate-geotiffs - Switchboard for getting geotiff generation jobs to the GrADS script for production
 
 =head1 SYNOPSIS
 
@@ -28,15 +28,13 @@ Given a date, this script:
 
 =over 3
 
-=item * Reads GeoTIFF creation jobs information from a configuration file
+=item * Reads geotiff generating jobs settings from a configuration file
 
-=item * Determines the time period to use based on the -date option and specifications in the jobs file
+=item * Determines the date ranges to use for the geotiff data generation
 
-=item * Sets up each job as a list of commands to pass to the GrADS script
+=item * Sets up and executes commands to GrADS to generate the geotiffs
 
-=item * Executes the GrADS script with the required arguments
-
-=item * Evaluates the success or failure of GeoTIFF creation
+=item * Evaluates the success or failure of the GrADS-based GeoTIFF creation
 
 =back
 
@@ -72,7 +70,7 @@ L<Adam Allgood|mailto:Adam.Allgood@noaa.gov>
 
 L<Climate Prediction Center - NOAA/NWS/NCEP|http://www.cpc.ncep.noaa.gov>
 
-This documentation was last updated on: 31JAN2018
+This documentation was last updated on: 18JUN2018
 
 =cut
 
