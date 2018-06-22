@@ -40,11 +40,29 @@ set mday = `date +%d --d ${runDate}`
 
 set failure = 0
 
+# --- Update precipitation archive ---
+
+set precipDate = `date +%Y%m%d --d "${runDate}-2days"`
+
+echo
+echo Updating CMORPH-Gauge merge precipitation archive
+perl ${JAWF_GEOTIFFS}/scripts/update-precipitation-archive.pl -d ${precipDate}
+
+if ( $status != 0) then
+    set failure = 1
+endif
+
 # --- Daily and weekly geotiffs ---
 
 echo
 echo Generating daily and weekly JAWF geotiffs
 perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/daily-temperature.jobs -d ${runDate}
+
+if ( $status != 0) then
+    set failure = 1
+endif
+
+perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/daily-precipitation.jobs -d ${runDate}
 
 if ( $status != 0) then
     set failure = 1
@@ -61,12 +79,24 @@ if ( $mday == '02' ) then
         set failure = 1
     endif
 
+    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-precipitation.jobs -d ${runDate}
+
+    if ( $status != 0 ) then
+        set failure = 1
+    endif
+
 # --- Annual geotiffs ---
 
     if ($mnum == '01' ) then
         echo
         echo Generating annual geotiffs
         perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-temperature.jobs -d ${runDate}
+
+        if ( $status != 0 ) then
+            set failure = 1
+        endif
+
+        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-precipitation.jobs -d ${runDate}
 
         if ( $status != 0 ) then
             set failure = 1
