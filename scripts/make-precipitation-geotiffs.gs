@@ -56,6 +56,8 @@ say 'output given:      'output
 
 * --- Summarize obs and climos over the period ---
 
+'set lon -180 180'
+
 'define prec=sum(bld.1,time='start',time='end')'
 'define precClim=sum(bld.2,time='start',time='end')'
 

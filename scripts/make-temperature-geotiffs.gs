@@ -66,6 +66,8 @@ say 'output given:      'output
 
 * --- Summarize obs and climos over the period ---
 
+'set lon -180 180'
+
 if(vartype='maxmin')
     'define maxobs=max(tmax.1,time='start',time='end')'
     'define minobs=max(tmin.1,time='start',time='end')'
