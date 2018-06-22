@@ -92,6 +92,8 @@ endif
 
 * --- Generate regridded geotiffs ---
 
+'set lon -180 180'
+
 if(vartype='maxmin')
     'set gxout geotiff'
     'set geotiff 'output'_maximum'

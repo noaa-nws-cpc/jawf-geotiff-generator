@@ -66,6 +66,8 @@ say 'output given:      'output
 
 * --- Generate geotiffs ---
 
+'set lon -180 180'
+
 'set gxout geotiff'
 'set geotiff 'output'_accumulated'
 'd prec'
