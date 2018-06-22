@@ -56,6 +56,8 @@ say 'output given:      'output
 
 * --- Summarize obs and climos over the period ---
 
+'set lon -180 180'
+
 'define prec=sum(bld.1,time='start',time='end')'
 'define precClim=sum(bld.2,time='start',time='end')'
 
@@ -65,8 +67,6 @@ say 'output given:      'output
 'define pctnml=100*(prec/(precClim+0.0001))'
 
 * --- Generate geotiffs ---
-
-'set lon -180 180'
 
 'set gxout geotiff'
 'set geotiff 'output'_accumulated'
