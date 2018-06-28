@@ -14,7 +14,7 @@ generate-geotiffs - Switchboard for getting geotiff generation jobs to the GrADS
 
  [OPTION]            [DESCRIPTION]                                         [VALUES]
 
- -date, -d           Date to use to calculate the geotiff time period      yyyymmdd
+ -date, -d           Ending date of the calendar period to be used         yyyymmdd
  -failed, -f         Print failed job information to this file             filename
  -help, -h           Print usage message and exit
  -jobs, -j           Configuration file with jobs information              filename
@@ -70,7 +70,7 @@ L<Adam Allgood|mailto:Adam.Allgood@noaa.gov>
 
 L<Climate Prediction Center - NOAA/NWS/NCEP|http://www.cpc.ncep.noaa.gov>
 
-This documentation was last updated on: 18JUN2018
+This documentation was last updated on: 28JUN2018
 
 =cut
 
@@ -115,7 +115,7 @@ BEGIN {
 
 # --- Get the command-line options ---
 
-my $date        = int(CPC::Day->new());
+my $date        = int(CPC::Day->new() - 2);
 my $failed      = undef;
 my $help        = undef;
 my $jobsFile    = undef;
@@ -156,13 +156,13 @@ if($manual) {
 my $day;
 eval   { $day = CPC::Day->new($date); };
 if($@) { die "Option --date=$date is invalid! Reason: $@ - exiting"; }
-unless(CPC::Day->new() >= $day) { die "Option --date=$date is too recent - exiting"; }
+unless(CPC::Day->new() >= $day - 1) { die "Option --date=$date is too recent - exiting"; }
 
 # --- If option -failed was passed, open the failed jobs file for writing and close it when the script finishes ---
 
 if($failed) {
     open(FAILEDJOBS,'>',$failed) or die "Could not open $failed for writing - $! - exiting";
-    print FAILEDJOBS 'gradsScript|ctlObs|ctlClimo|dateOffset|vartype|period|archiveRoot|fileRoot'."\n";
+    print FAILEDJOBS 'gradsScript|ctlObs|ctlClimo|vartype|period|archiveRoot|fileRoot'."\n";
 }
 
 END {
@@ -240,15 +240,14 @@ JOB: foreach my $job (@jobs) {
 
     # --- Parse jobs settings into GrADS script args ---
 
-    my($gradsScript, $ctlObs, $ctlClimo, $vartype, $dateOffset, $period, $archiveRoot, $fileroot) = split(/\|/,$job);
-    my $targetDay = $day + int($dateOffset);
+    my($gradsScript, $ctlObs, $ctlClimo, $vartype, $period, $archiveRoot, $fileroot) = split(/\|/,$job);
     my($start, $end, $dateDirs);
 
     if($period =~ /^[+-]?\d+$/) {
 
         if($period > 0) {
-            $start = $targetDay - $period + 1;
-            $end   = $targetDay;
+            $start = $day - $period + 1;
+            $end   = $day;
             $dateDirs = join('/',$end->Year,sprintf("%02d",$end->Mnum),sprintf("%02d",$end->Mday));
         }
         else            {
@@ -260,20 +259,20 @@ JOB: foreach my $job (@jobs) {
 
     }
     elsif($period =~ /month/) {
-        my $month = CPC::Month->new($targetDay->Mnum,$targetDay->Year);
+        my $month = CPC::Month->new($day->Mnum,$day->Year);
         $start    = CPC::Day->new(int($month).'01');
         $end      = CPC::Day->new(int($month).$month->Length);
 	$dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
     }
     elsif($period =~ /season/) {
-        my $month3 = CPC::Month->new($targetDay->Mnum,$targetDay->Year);
+        my $month3 = CPC::Month->new($day->Mnum,$day->Year);
         my $month1 = $month3 - 2;
         $start     = CPC::Day->new(int($month1).'01');
         $end       = CPC::Day->new(int($month3).$month3->Length);
         $dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
     }
     elsif($period =~ /year/) {
-        my $year  = $targetDay->Year;
+        my $year  = $day->Year;
         $start    = CPC::Day->new($year.'0101');
         $end      = CPC::Day->new($year.'1231');
         $dateDirs = $end->Year;
