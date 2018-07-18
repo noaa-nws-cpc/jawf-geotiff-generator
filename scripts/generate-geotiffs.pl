@@ -200,7 +200,11 @@ my %jobsFileVars = (
     PRCP_ARCHIVE    => "$DATA_OUT/observations/land_air/short_range/global/precipitation/cmorph-gauge-merge",
     TEMP_ARCHIVE    => "$DATA_IN/cwlinks/temp/GLOBAL/hi_res",
     TMERGE_OBS      => "$DATA_IN/observations/land_air/short_range/global/merged_tmean/1deg/01d",
-    TMERGE_CLIM     => "$DATA_IN/climatologies/land_air/short_range/global/merged_tmean_poe/1deg/01d",
+    TMAX_OBS        => "$DATA_IN/observations/land_air/short_range/global/merged_tmax/1deg/01d",
+    TMIN_OBS        => "$DATA_IN/observations/land_air/short_range/global/merged_tmin/1deg/01d",
+    TMERGE_CLIM     => "$DATA_IN/climatologies/land_air/short_range/global/merged_tmean/1deg/01d",
+    TMAX_CLIM       => "$DATA_IN/climatologies/land_air/short_range/global/merged_tmax/1deg/01d",
+    TMIN_CLIM       => "$DATA_IN/climatologies/land_air/short_range/global/merged_tmin/1deg/01d",
     DEFAULT_ARCHIVE => "$DATA_OUT/observations/land_air/all_ranges/global/jawf_geotiffs",
 );
 
