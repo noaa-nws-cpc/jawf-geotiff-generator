@@ -82,7 +82,7 @@ if(vartype='maxmin')
     'define minclimo=min(tmin.2,time='start',time='end')'
     'define meanclimo=ave(tmean.2,time='start',time='end')'
 
-    'define maxamon=maxobs-maxclimo'
+    'define maxanom=maxobs-maxclimo'
     'define minanom=minobs-minclimo'
     'define meananom=meanobs-meanclimo'
 endif
@@ -96,7 +96,7 @@ endif
 if(vartype='max')
     'define maxobs=max(tmax.1,time='start',time='end')'
     'define maxclimo=max(tmax.2,time='start',time='end')'
-    'define maxamon=maxobs-maxclimo'
+    'define maxanom=maxobs-maxclimo'
 endif
 
 if(vartype='min')
