@@ -313,10 +313,15 @@ JOB: foreach my $job (@jobs) {
             $geotiffRoot.'_mean.tif',
             $geotiffRoot.'_mean-anomaly.tif');
     }
-    elsif($gradsScript =~ /temperature/ and $vartype =~ /mean/ or $vartype =~ /max/ or $vartype =~ /min/) {
+    elsif($gradsScript =~ /temperature/ and $vartype =~ /mean/) {
         push(@geotiffs,
-            $geotiffRoot."_$vartype.tif",
-            $geotiffRoot."_$vartype-anomaly.tif");
+            $geotiffRoot.'_mean.tif',
+            $geotiffRoot.'_mean-anomaly.tif');
+    }
+    elsif($gradsScript =~ /temperature/ and $vartype =~ /max/ or $vartype =~ /min/) {
+        push(@geotiffs,
+            $geotiffRoot."_${vartype}imum.tif",
+            $geotiffRoot."_${vartype}imum-anomaly.tif");
     }
     elsif($gradsScript =~ /precipitation/) {
         push(@geotiffs,
