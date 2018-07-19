@@ -8,16 +8,21 @@
 *   Arguments:
 *       ctlObs:      Filename of the GrADS data descriptor file for the observations dataset
 *       ctlClimo:    Filename of the GrADS data descriptor file for the temperature climatology
-*       vartype:     Either 'maxmin' if obs and climo have separate tmax and tmin variables, or 'mean' if only the tmean is available
+*       vartype:     maxmin - Dataset contains max/min temperatures. Create geotiff full-field and anomaly data for mean, maximum, and minimum temperature
+*                    max    - Dataset contains max temperatures. Create geotiff full-field and anomaly data for maximum temperatures only
+*                    mix    - Dataset contains min temperatures. Create geotiff full-field and anomaly data for minimum temperatures only
+*                    mean   - Dataset contains mean temperatures. Create geotiff full-field and anomaly data for mean temperatures only
 *       start:       Start date of the observational period to utilize in DDMONYYYY format
 *       end:         End date of the observational period to utilize in DDMONYYYY format
 *       output:      Root of the output filenames to generate (_[product] and .tif will be appended)
 *
 *   Notes:
 *   1. If 'maxmin' is passed as vartype, ctlObs and ctlClimo must have tmax and tmin specified as variables corresponding to daily maximum and minimum temperatures
-*   2. If 'mean' is passed as vartype, ctlObs and ctlClimo must have tmean specified as a variable corresponding to the daily mean temperature
-*   4. The climatology ctl files should use templating in the same format as the obs
-*   5. The following 6 products are created by this script:
+*   2. If 'max' is passed as vartype, the data descriptors must have a variable called tmax
+*   3. If 'min' is passed as vartype, the data descriptors must have a variable called tmin
+*   4. If 'mean' is passed as vartype, the data descriptors must have a variable called tmean
+*   5. The climatology ctl files should use templating in the same format as the obs
+*   6. The following (up to 6) products are created by this script:
 *       [output]_maximum.tif          - GeoTIFF grid of maximum temperature observed during the period - only plotted when vartype=maxmin
 *       [output]_maximum-anomaly.tif  - GeoTIFF grid of maximum temperature anomaly observed during the period - only plotted when vartype=maxmin
 *       [output]_minimum.tif          - GeoTIFF grid of minimum temperature observed during the period - only plotted when vartype=maxmin
