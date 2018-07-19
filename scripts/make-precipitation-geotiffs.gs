@@ -9,6 +9,7 @@
 *       ctlObs:      Filename of the GrADS data descriptor file for the observations dataset
 *       ctlClimo:    Filename of the GrADS data descriptor file for the precipitation climatology
 *       vartype:     Dummy variable - ignored by script but present to make consistent with temperature creator args
+*       level:       Z-Axis value
 *       start:       Start date of the observational period to utilize in DDMONYYYY format
 *       end:         End date of the observational period to utilize in DDMONYYYY format
 *       output:      Root of the output filenames to generate (_[product].tif will be appended)
@@ -30,13 +31,14 @@ function geotiffs (args)
 ctlObs=subwrd(args,1)
 ctlClimo=subwrd(args,2)
 vartype=subwrd(args,3)
-start=subwrd(args,4)
-end=subwrd(args,5)
-output=subwrd(args,6)
+level=subwrd(args,4)
+start=subwrd(args,5)
+end=subwrd(args,6)
+output=subwrd(args,7)
 
 * --- Make sure all command arguments were passed ---
 
-if(ctlObs='' | ctlClimo='' | start='' | end='' | output='')
+if(ctlObs='' | ctlClimo='' | vartype='' | level='' | start='' | end='' | output='')
     say 'Cannot produce geotiffs - missing arguments'
     'quit'
 endif
@@ -45,6 +47,7 @@ endif
 
 say 'ctlObs given:      'ctlObs
 say 'ctlClimo given:    'ctlClimo
+say 'level given:       'level
 say 'start given:       'start
 say 'end given:         'end
 say 'output given:      'output
@@ -57,6 +60,7 @@ say 'output given:      'output
 * --- Summarize obs and climos over the period ---
 
 'set lon -180 180'
+'set lev 'level
 
 'define prec=sum(bld.1,time='start',time='end')'
 'define precClim=sum(bld.2,time='start',time='end')'

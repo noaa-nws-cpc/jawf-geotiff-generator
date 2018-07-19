@@ -12,6 +12,7 @@
 *                    max    - Dataset contains max temperatures. Create geotiff full-field and anomaly data for maximum temperatures only
 *                    mix    - Dataset contains min temperatures. Create geotiff full-field and anomaly data for minimum temperatures only
 *                    mean   - Dataset contains mean temperatures. Create geotiff full-field and anomaly data for mean temperatures only
+*       level:       Z-Axis setting
 *       start:       Start date of the observational period to utilize in DDMONYYYY format
 *       end:         End date of the observational period to utilize in DDMONYYYY format
 *       output:      Root of the output filenames to generate (_[product] and .tif will be appended)
@@ -38,13 +39,14 @@ function geotiffs (args)
 ctlObs=subwrd(args,1)
 ctlClimo=subwrd(args,2)
 vartype=subwrd(args,3)
-start=subwrd(args,4)
-end=subwrd(args,5)
-output=subwrd(args,6)
+level=subwrd(args,4)
+start=subwrd(args,5)
+end=subwrd(args,6)
+output=subwrd(args,7)
 
 * --- Make sure all command arguments were passed ---
 
-if(ctlObs='' | ctlClimo='' | vartype='' | start='' | end='' | output='')
+if(ctlObs='' | ctlClimo='' | vartype='' | level='' | start='' | end='' | output='')
     say 'Cannot produce geotiffs - missing arguments'
     'quit'
 endif
@@ -54,6 +56,7 @@ endif
 say 'ctlObs given:      'ctlObs
 say 'ctlClimo given:    'ctlClimo
 say 'vartype given:     'vartype
+say 'level given:       'level
 say 'start given:       'start
 say 'end given:         'end
 say 'output given:      'output
@@ -72,6 +75,7 @@ say 'output given:      'output
 * --- Calculate full-field observations and anomalies over the period ---
 
 'set lon -180 180'
+'set lev 'level
 
 if(vartype='maxmin')
     'define maxobs=max(tmax.1,time='start',time='end')'
