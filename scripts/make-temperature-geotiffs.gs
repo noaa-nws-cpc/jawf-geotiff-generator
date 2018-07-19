@@ -69,33 +69,41 @@ say 'output given:      'output
 'open 'ctlObs
 'open 'ctlClimo
 
-* --- Summarize obs and climos over the period ---
+* --- Calculate full-field observations and anomalies over the period ---
 
 'set lon -180 180'
 
 if(vartype='maxmin')
     'define maxobs=max(tmax.1,time='start',time='end')'
-    'define minobs=max(tmin.1,time='start',time='end')'
+    'define minobs=min(tmin.1,time='start',time='end')'
     'define meanobs=ave((tmax.1+tmin.1)/2,time='start',time='end')'
 
     'define maxclimo=max(tmax.2,time='start',time='end')'
-    'define minclimo=max(tmin.2,time='start',time='end')'
+    'define minclimo=min(tmin.2,time='start',time='end')'
     'define meanclimo=ave(tmean.2,time='start',time='end')'
+
+    'define maxamon=maxobs-maxclimo'
+    'define minanom=minobs-minclimo'
+    'define meananom=meanobs-meanclimo'
 endif
 
 if(vartype='mean')
     'define meanobs=ave(tmean.1,time='start',time='end')'
     'define meanclimo=ave(tmean.2,time='start',time='end')'
+    'define meananom=meanobs-meanclimo'
 endif
 
-* --- Compute anomalies ---
+if(vartype='max')
+    'define maxobs=max(tmax.1,time='start',time='end')'
+    'define maxclimo=max(tmax.2,time='start',time='end')'
+    'define maxamon=maxobs-maxclimo'
+endif
 
-if(vartype='maxmin')
-    'define maxanom=maxobs-maxclimo'
+if(vartype='min')
+    'define minobs=min(tmin.1,time='start',time='end')'
+    'define minclimo=min(tmin.2,time='start',time='end')'
     'define minanom=minobs-minclimo'
 endif
-
-'define meananom=meanobs-meanclimo'
 
 * --- Generate regridded geotiffs ---
 
@@ -115,15 +123,45 @@ if(vartype='maxmin')
     'set gxout geotiff'
     'set geotiff 'output'_minimum-anomaly'
     'd lterp(minanom,qtrdeg,aave,1)'
+
+    'set gxout geotiff'
+    'set geotiff 'output'_mean'
+    'd lterp(meanobs,qtrdeg,aave,1)'
+
+    'set gxout geotiff'
+    'set geotiff 'output'_mean-anomaly'
+    'd lterp(meananom,qtrdeg,aave,1)'
 endif
 
-'set gxout geotiff'
-'set geotiff 'output'_mean'
-'d lterp(meanobs,qtrdeg,aave,1)'
+if(vartype='max')
+    'set gxout geotiff'
+    'set geotiff 'output'_maximum'
+    'd lterp(maxobs,qtrdeg,aave,1)'
 
-'set gxout geotiff'
-'set geotiff 'output'_mean-anomaly'
-'d lterp(meananom,qtrdeg,aave,1)'
+    'set gxout geotiff'
+    'set geotiff 'output'_maximum-anomaly'
+    'd lterp(maxanom,qtrdeg,aave,1)'
+endif
+
+if(vartype='min')
+    'set gxout geotiff'
+    'set geotiff 'output'_minimum'
+    'd lterp(minobs,qtrdeg,aave,1)'
+
+    'set gxout geotiff'
+    'set geotiff 'output'_minimum-anomaly'
+    'd lterp(minanom,qtrdeg,aave,1)'
+endif
+
+if(vartype='mean')
+    'set gxout geotiff'
+    'set geotiff 'output'_mean'
+    'd lterp(meanobs,qtrdeg,aave,1)'
+
+    'set gxout geotiff'
+    'set geotiff 'output'_mean-anomaly'
+    'd lterp(meananom,qtrdeg,aave,1)'
+endif
 
 * --- End GrADS script ---
 
