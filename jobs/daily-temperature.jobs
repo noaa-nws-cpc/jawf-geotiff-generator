@@ -1,18 +1,18 @@
-gradsScript|ctlObs|ctlClimo|period|archiveRoot|fileRoot
+gradsScript|ctlObs|ctlClimo|vartype|level|period|archiveRoot|fileRoot
 #
 # Primary dataset
 #
-make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|maxmin|1|$DEFAULT_ARCHIVE|temperature_1day
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|maxmin|1|1|$DEFAULT_ARCHIVE|temperature_1day
 #
-make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|maxmin|7|$DEFAULT_ARCHIVE|temperature_7day
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|maxmin|1|7|$DEFAULT_ARCHIVE|temperature_7day
 #
 # Secondary dataset - CPC merged temperature grids - to use as an over-ocean underlay
 #
-make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|1|$DEFAULT_ARCHIVE|temperature-ocean_1day
-make-temperature-geotiffs.gs|$TMAX_OBS/grads.ctl|$TMAX_CLIM/grads.ctl|max|1|$DEFAULT_ARCHIVE|temperature-ocean_1day
-make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|1|$DEFAULT_ARCHIVE|temperature-ocean_1day
+make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|1|1|$DEFAULT_ARCHIVE|temperature-ocean_1day
+make-temperature-geotiffs.gs|$TMAX_OBS/grads.ctl|$TMAX_CLIM/grads.ctl|max|50|1|$DEFAULT_ARCHIVE|temperature-ocean_1day
+make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|50|1|$DEFAULT_ARCHIVE|temperature-ocean_1day
 #
-make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|7|$DEFAULT_ARCHIVE|temperature-ocean_7day
-make-temperature-geotiffs.gs|$TMAX_OBS/grads.ctl|$TMAX_CLIM/grads.ctl|max|7|$DEFAULT_ARCHIVE|temperature-ocean_7day
-make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|7|$DEFAULT_ARCHIVE|temperature-ocean_7day
+make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|1|7|$DEFAULT_ARCHIVE|temperature-ocean_7day
+make-temperature-geotiffs.gs|$TMAX_OBS/grads.ctl|$TMAX_CLIM/grads.ctl|max|50|7|$DEFAULT_ARCHIVE|temperature-ocean_7day
+make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|50|7|$DEFAULT_ARCHIVE|temperature-ocean_7day
 #
