@@ -75,16 +75,15 @@ say 'output given:      'output
 * --- Calculate full-field observations and anomalies over the period ---
 
 'set lon -180 180'
-'set lev 'level
 
 if(vartype='maxmin')
     'define maxobs=max(tmax.1,time='start',time='end')'
     'define minobs=min(tmin.1,time='start',time='end')'
     'define meanobs=ave((tmax.1+tmin.1)/2,time='start',time='end')'
 
-    'define maxclimo=max(tmax.2,time='start',time='end')'
-    'define minclimo=min(tmin.2,time='start',time='end')'
-    'define meanclimo=ave(tmean.2,time='start',time='end')'
+    'define maxclimo=max(tmax.2,lev='level',time='start',time='end')'
+    'define minclimo=min(tmin.2,lev='level',time='start',time='end')'
+    'define meanclimo=ave(tmean.2,lev='level',time='start',time='end')'
 
     'define maxanom=maxobs-maxclimo'
     'define minanom=minobs-minclimo'
@@ -93,19 +92,19 @@ endif
 
 if(vartype='mean')
     'define meanobs=ave(tmean.1,time='start',time='end')'
-    'define meanclimo=ave(tmean.2,time='start',time='end')'
+    'define meanclimo=ave(tmean.2,lev='level',time='start',time='end')'
     'define meananom=meanobs-meanclimo'
 endif
 
 if(vartype='max')
     'define maxobs=max(tmax.1,time='start',time='end')'
-    'define maxclimo=max(tmax.2,time='start',time='end')'
+    'define maxclimo=max(tmax.2,lev='level',time='start',time='end')'
     'define maxanom=maxobs-maxclimo'
 endif
 
 if(vartype='min')
     'define minobs=min(tmin.1,time='start',time='end')'
-    'define minclimo=min(tmin.2,time='start',time='end')'
+    'define minclimo=min(tmin.2,lev='level',time='start',time='end')'
     'define minanom=minobs-minclimo'
 endif
 
