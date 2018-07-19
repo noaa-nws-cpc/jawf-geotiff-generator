@@ -62,7 +62,8 @@ say 'output given:      'output
 'set lon -180 180'
 
 'define prec=sum(bld.1,time='start',time='end')'
-'define precClim=sum(bld.2,lev='level',time='start',time='end')'
+'set lev 'level
+'define precClim=sum(bld.2,time='start',time='end')'
 
 * --- Compute anomaly and percent of normal precipitation ---
 
