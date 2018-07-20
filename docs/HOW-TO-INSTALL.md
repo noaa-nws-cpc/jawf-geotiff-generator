@@ -17,7 +17,7 @@ Other Documents
 Prerequisites
 ---------------
 
-The following software must be installed on your system in order to install and use jawf-geotiff-generator:
+The following software must be installed on your system in order to install and use realtime-oni:
 
 - [git](https://git-scm.com/book/en/v1/Getting-Started-Installing-Git)
 - [CPC Perl5 Library](https://github.com/noaa-nws-cpc/cpc-perl5-lib)
@@ -30,33 +30,38 @@ To see which version of GrADS your system uses by default, enter:
 Steps to Install
 ---------------
 
-### Download and install jawf-geotiff-generator
+**NOTE:** This application was developed and tested in a Linux environment (RHEL 6), and these instructions are intended for installation in a similar environment. If you want to try installing this in a different operating system, you will have to modify the instructions on your own.
 
-These instructions assume that the jawf-geotiff-generator app will be installed in `$HOME/apps`. If you install it in a different directory, modify these instructions accordingly.
+### Download and set up realtime-oni on your system
 
-1. Download jawf-geotiff-generator (this creates a directory called `jawf-geotff-generator`):
+These instructions assume that the realtime-oni app will be installed in `$HOME/apps`. If you install it in a different directory, modify these instructions accordingly.
+
+1. Download realtime-oni (this creates a directory called `realtime-oni`):
 
     `$ cd $HOME/apps`
     
-    `$ git clone https://github.com/noaa-nws-cpc/jawf-geotiff-generator.git`
+    `$ git clone https://github.com/noaa-nws-cpc/realtime-oni.git`
 
-2. Install the application:
+2. Add the environment variable `$REALTIME_ONI` to `~/.profile_user` or whatever file you use to set up your profile:
 
-    `$ cd $HOME/apps/jawf-geotiff-generator`
+    `export REALTIME_ONI="${HOME}/apps/realtime-oni"`
+
+3. Set up the application, including initialization of the SST archive with the past 120 days of daily data:
+
+    `$ cd $HOME/apps/realtime-oni`
     
     `$ make install`
 
-3. Add the environment variable `$JAWF_GEOTIFFS` to `~/.profile_user` or whatever file you use to set up your profile:
-
-    `export JAWF_GEOTIFFS="${HOME}/apps/jawf-geotiff-generator"`
-
-### Setup climatologies
-
 ### Setup cron
 
-1. Daily jobs (most recent 1- and 7-day):
+**Sample basic cron entry:**
 
-2. Monthly jobs (most recent month and three months):
+`00 12 * * * $REALTIME_ONI/drivers/daily/update-archives.csh 1> $REALTIME_ONI/logs/update-archives.txt 2>&1`
 
-3. Annual job (most recent year):
+**Sample CPC operational cron entry:**
 
+`00 12 * * * /situation/bin/flagrun.pl CPCOPS_RH6 '$REALTIME_ONI/drivers/daily/update-archives.csh 1> $REALTIME_ONI/logs/update-archives.txt 2>&1'`
+
+**Sample CPC operational cron entry with later attempt to get final data using [keep-trying](https://github.com/mikecharles/keep-trying), and emailing a logfile to the app owner:**
+
+`00 12 * * * /situation/bin/flagrun.pl CPCOPS_RH6 'keep-trying -i 600 -t 600 -e app.owner\@email.domain -s \"realtime-oni updater FAILED - Check attached logfile\" -l $REALTIME_ONI/logs/update-archives.txt -- $REALTIME_ONI/drivers/daily/update-archives.csh'`
