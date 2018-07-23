@@ -27,7 +27,7 @@ To see if git is installed and what version your system has, enter:
 
     $ git --version
 
-To see if the CPC Perl5 Library is available, enter:
+Check that the CPC Perl5 Library is available via Perl's `@INC`. For example, enter:
 
     $ echo $PERL5LIB
 
