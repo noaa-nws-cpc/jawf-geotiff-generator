@@ -26,6 +26,21 @@ Operational Usage
 
 ### Driver Script
 
+This script can be run with no arguments, which is the default usage:
+
+`$JAWF_GEOTIFFS/drivers/run-jawf-production.csh`
+
+The script alternatively takes a date in YYYYMMDD format as an argument, e.g., to generate GeoTIFFs for periods ending August 31, 2018:
+
+`$JAWF_GEOTIFFS/drivers/run-jawf-production.csh 20180831`
+
+This driver script does the following:
+
+1. Sets the update date, which is the ending date for the GeoTIFF summary periods (e.g., 7-days ending on the update date, or month ending on the update date, etc.). The default date when the script is given no arguments is the date 2-days prior to the system time as returned by the Linux `date` utility. This default is overridden by a date passed as an argument.
+2. Updates an archive of precipitation data using `$JAWF_GEOTIFFS/scripts/update-precipitation-archive.pl` - this step is needed because the CPC gauge-satellite merged data is currently stored as zipped tarfiles.
+3. Creates GeoTIFF temperature and precipitation products for the past 1- and 7-days ending on the update date.
+4. 
+
 ### Rerun Utility
 
 ### Updating the Precipitation Archive
