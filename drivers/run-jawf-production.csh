@@ -68,7 +68,11 @@ endif
 
 # --- Monthly and seasonal geotiffs ---
 
-if ( $mday == '02' ) then
+# Determine if upDate is the last day of a month!
+
+set mdayp1 = `date +%d --d "${upDate} + 1day"`
+
+if ( $mdayp1 < $mday ) then
     echo
     echo Generating monthly and seasonal geotiffs
     perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-temperature.jobs -d ${upDate}
@@ -85,7 +89,7 @@ if ( $mday == '02' ) then
 
 # --- Annual geotiffs ---
 
-    if ($mnum == '01' ) then
+    if ($mnum == '12' ) then
         echo
         echo Generating annual geotiffs
         perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-temperature.jobs -d ${upDate}
