@@ -123,6 +123,33 @@ The application comes with several jobs files that create the set of GeoTIFF pro
 
 ### Perl Switchboard Script
 
+`$JAWF_GEOTIFFS/scripts/generate-geotiffs.pl`
+```
+Usage:
+     $JAWF_GEOTIFFS/scripts/generate-geotiffs.pl [-d|-j]
+     $JAWF_GEOTIFFS/scripts/generate-geotiffs.pl -h
+     $JAWF_GEOTIFFS/scripts/generate-geotiffs.pl -man
+
+     [OPTION]            [DESCRIPTION]                                         [VALUES]
+
+     -date, -d           Ending date of the calendar period to be used         yyyymmdd
+     -failed, -f         Print failed job information to this file             filename
+     -help, -h           Print usage message and exit
+     -jobs, -j           Configuration file with jobs information              filename
+     -manual, -man       Display script documentation
+```
+
+Given a date and a jobs configuration file, this script sets up and executes GrADS commands that utilize GrADS scripts to create the GeoTIFF products. This is done by parsing the elements of the jobs file into arguments to be passed to the GrADS scripts, and using the dates and the `period` field of the job to set the starting and ending dates of the summary period. The output from the GrADS command to STDOUT is captured and evaluated for possible errors, and the output archive is scanned to confirm whether the GeoTIFF files were created or not. Optionally, jobs that were unsuccessful at producing GeoTIFF data can be written to a text file using the `-failed` option.
+
+The summary periods to use for the GeoTIFF products are determined as follows, given a `-date` value of YYYYMMDD:
+
+| Job `period` field | Description   |
+| ------------------ | ------------- |
+| Integer N          | N-days ending on YYYYMMDD |
+| month              | Every day in the month YYYYMM |
+| seasonal           | Every day in the 3 calendar month period ending on the last day of the month YYYYMM |
+| year               | Every day in the year YYYY |
+
 ### GrADS GeoTIFF Generating Scripts
 
 
