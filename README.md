@@ -4,7 +4,7 @@ README
 ===============
 
 - **App Owner: [Adam Allgood](mailto:adam.allgood@noaa.gov)**
-- **CPC Operational Backup: [Daniel Harnos](mailto:daniel.harnos@noaa.gov)**
+- **CPC Operational Backup: [David Miskus](mailto:david.miskus@noaa.gov)**
 
 Table of Contents
 -----------------
