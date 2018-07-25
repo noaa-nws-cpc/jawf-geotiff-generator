@@ -139,7 +139,7 @@ Usage:
      -manual, -man       Display script documentation
 ```
 
-Given a date and a jobs configuration file, this script sets up and executes GrADS commands that utilize GrADS scripts to create the GeoTIFF products. This is done by parsing the elements of the jobs file into arguments to be passed to the GrADS scripts, and using the dates and the `period` field of the job to set the starting and ending dates of the summary period. The output from the GrADS command to STDOUT is captured and evaluated for possible errors, and the output archive is scanned to confirm whether the GeoTIFF files were created or not. Optionally, jobs that were unsuccessful at producing GeoTIFF data can be written to a text file using the `-failed` option.
+Given a date and a jobs configuration file, this script sets up and executes GrADS commands that utilize GrADS scripts to create the GeoTIFF products. This is done by parsing the elements of the jobs file into arguments to be passed to the GrADS scripts, and using the dates and the `period` field of the job to set the starting and ending dates of the summary period. The output from the GrADS command to STDOUT is captured and evaluated for possible errors, and the output archive is scanned to confirm whether the GeoTIFF files were created or not. Optionally, jobs that were unsuccessful at producing GeoTIFF data can be written to a text file using the `-failed` option. This could save time when rerunning.
 
 The summary periods to use for the GeoTIFF products are determined as follows, given a `-date` value of YYYYMMDD:
 
@@ -152,4 +152,66 @@ The summary periods to use for the GeoTIFF products are determined as follows, g
 
 ### GrADS GeoTIFF Generating Scripts
 
+These scripts take numerous arguments and are designed to be executed by a GrADS command set up by the Perl switchboard script. For reference, the usage statement for the precipitation product generator is:
 
+`make-precipitation-geotiffs.gs`
+```
+Usage:
+  cd ${JAWF_GEOTIFFS}/scripts
+  grads -blc "run make-precipitation-geotiffs.gs ctlObs ctlClimo start end output
+
+  Arguments:
+      ctlObs:      Filename of the GrADS data descriptor file for the observations dataset
+      ctlClimo:    Filename of the GrADS data descriptor file for the precipitation climatology
+      vartype:     Dummy variable - ignored by script but present to make consistent with temperature creator args
+      level:       Z-Axis value
+      start:       Start date of the observational period to utilize in DDMONYYYY format
+      end:         End date of the observational period to utilize in DDMONYYYY format
+      output:      Root of the output filenames to generate (_[product].tif will be appended)
+
+  Notes:
+  1. The dataset described by ctlObs must have the variable bld - daily precipitation based on gauge satellite merged analysis.
+  2. The dataset described by ctlClimoClimo must have the variable
+  3. The climatology ctl files should use templating in the same format as the obs
+  4. The following 3 products are created by this script:
+      [output]_accumulated.tif - GeoTIFF grid of total accumulated precipitation observed during the period
+      [output]_anomaly.tif     - GeoTIFF grid of the departure from climatology precipitation observed during the period
+      [output]_percent-normal.tif - GeoTIFF grid of the percent of climatology precipitation observed during the period
+```
+
+Note that a `vartype` argument is required but not needed. This argument is needed by the temperature product generator. The usage statement for that script, which includes the 4 possible `vartype` values is:
+
+`make-temperature-geotiffs.gs`
+```
+Usage:
+  cd ${JAWF_GEOTIFFS}/scripts
+  grads -blc "run make-temperature-geotiffs.gs ctlObs ctlClimo start end output
+
+  Arguments:
+      ctlObs:      Filename of the GrADS data descriptor file for the observations dataset
+      ctlClimo:    Filename of the GrADS data descriptor file for the temperature climatology
+      vartype:     maxmin - Dataset contains max/min temperatures. Create geotiff full-field and anomaly data for mean, maximum, and minimum temperature
+                   max    - Dataset contains max temperatures. Create geotiff full-field and anomaly data for maximum temperatures only
+                   mix    - Dataset contains min temperatures. Create geotiff full-field and anomaly data for minimum temperatures only
+                   mean   - Dataset contains mean temperatures. Create geotiff full-field and anomaly data for mean temperatures only
+      level:       Z-Axis setting
+      start:       Start date of the observational period to utilize in DDMONYYYY format
+      end:         End date of the observational period to utilize in DDMONYYYY format
+      output:      Root of the output filenames to generate (_[product] and .tif will be appended)
+
+  Notes:
+  1. If 'maxmin' is passed as vartype, ctlObs and ctlClimo must have tmax and tmin specified as variables corresponding to daily maximum and minimum temperatures
+  2. If 'max' is passed as vartype, the data descriptors must have a variable called tmax
+  3. If 'min' is passed as vartype, the data descriptors must have a variable called tmin
+  4. If 'mean' is passed as vartype, the data descriptors must have a variable called tmean
+  5. The climatology ctl files should use templating in the same format as the obs
+  6. The following (up to 6) products are created by this script:
+      [output]_maximum.tif          - GeoTIFF grid of maximum temperature observed during the period - only plotted when vartype=maxmin
+      [output]_maximum-anomaly.tif  - GeoTIFF grid of maximum temperature anomaly observed during the period - only plotted when vartype=maxmin
+      [output]_minimum.tif          - GeoTIFF grid of minimum temperature observed during the period - only plotted when vartype=maxmin
+      [output]_minimum-anomaly.tif  - GeoTIFF grid of minimum temperature anomaly observed during the period - only plotted when vartype=maxmin
+      [output]_mean.tif             - GeoTIFF grid of period mean temperature observed during the period
+      [output]_mean-anomaly.tif     - GeoTIFF grid of period mean temperature anomaly observed during the period
+```
+
+The biggest important takeaway with regard to these scripts is the requirement that the variable names as specified in the GrADS data descriptor (ctl) files must have specific names. This somewhat narrow scope works well with CPC's operational datasets, but if you need to expand this application to work with other temperature or precipitation datasets, either use bld as the variable name for precipitation and tmax/tmin/tmean for temperature, or modify these scripts accordingly. A future release of this software may attempt more flexibility by requiring the variable names to be passed as arguments (and hence included in the jobs configuration files).
