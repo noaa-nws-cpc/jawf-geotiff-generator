@@ -88,9 +88,11 @@ Executing the precipitation archiving script with the following arguments:
 
 `$JAWF_GEOTIFFS/scripts/update-precipitation-archive.pl -d 20180722 -l $JAWF_GEOTIFFS/jobs/update-precipitation-archive.dates`
 
-will attempt to update the precipitation archive for June 30, July 1, July 5, 2017, July 22, 2018, and any dates between June 22 and July 22, 2018 where binary files are missing in the archive. Additionally, if the script is unsuccessful at updating the archive for any of these dates, the failed dates can be written out to a file by supplying a file name via the `-failed` option. If the `-list` and `-failed` options are set to the same file, a running list of dates that need to be updated can be maintained, and as dates are successfully updated in subsequent runs (i.e., on cron), they get removed from the list of dates that still need to be updated.
+will attempt to update the precipitation archive for June 30, July 1, July 5, 2017, July 22, 2018, and any dates between June 22 and July 22, 2018 where binary files are missing in the archive. In case the script is unsuccessful at updating the archive for any of these dates and you want to capture that information, the failed dates can be written out to a file by supplying the filename using the `-failed` option. If the `-list` and `-failed` options are both set to the same file, a running list of dates that need to be updated can be maintained, with dates that failed previously being supplied to the script during subsequent runs. This is how the script is utilized in the driver script.
 
-`$JAWF_GEOTIFFS/scripts/update-precipitation-archive.pl -d 20180722 -l $JAWF_GEOTIFFS/jobs/update-precipitation-archive.dates -f $JAWF_GEOTIFFS/jobs/update-precipitation-archive.dates`
+`$JAWF_GEOTIFFS/scripts/update-precipitation-archive.pl -d ${upDate} -l $JAWF_GEOTIFFS/jobs/update-precipitation-archive.dates -f $JAWF_GEOTIFFS/jobs/update-precipitation-archive.dates`
+
+A date set by the script (`${upDate}`) is added to a list of dates to update in the archive. The 30 days prior to that date in the archive are scanned, and any dates with missing data are also added to the list. Next, any dates in the file supplied by the `-list` option are added to the list. Then the script attempts to update the archive for all of these dates. If any dates are unsuccessful, they get written back to the file supplied.
 
 Creating GeoTIFFs
 ---------------
