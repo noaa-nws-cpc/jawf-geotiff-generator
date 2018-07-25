@@ -3,14 +3,18 @@
 README
 ===============
 
-> *Author: [Adam Allgood](mailto:adam.allgood@noaa.gov)*  
-> *Backup: [David Miskus](mailto:david.miskus@noaa.gov)*
+- **App Owner: [Adam Allgood](mailto:adam.allgood@noaa.gov)**
+- **CPC Operational Backup: [Daniel Harnos](mailto:daniel.harnos@noaa.gov)**
 
 Table of Contents
 -----------------
 
 - [Overview](#overview)
 - [Other Documents](#other-documents)
+- [Global Variables Used](#global-variables-used)
+- [Input Data](#input-data)
+- [Output Data](#output-data)
+- [Process Flow](#process-flow)
 - [NOAA Disclaimer](#noaa-disclaimer)
 
 Overview
@@ -21,6 +25,20 @@ Other Documents
 
 - [How to Install](docs/HOW-TO-INSTALL.md)
 - [How to Run](docs/HOW-TO-RUN.md)
+- [Contributing Guidelines](docs/CONTRIBUTING.md)
+- [Software License](LICENSE)
+
+Global Variables Used
+---------------
+
+Input Data
+---------------
+
+Output Data
+---------------
+
+Process Flow
+---------------
 
 NOAA Disclaimer
 ===============
