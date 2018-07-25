@@ -44,7 +44,7 @@ set failure = 0
 
 echo
 echo Updating CMORPH-Gauge merge precipitation archive
-perl ${JAWF_GEOTIFFS}/scripts/update-precipitation-archive.pl -d ${upDate}
+perl ${JAWF_GEOTIFFS}/scripts/update-precipitation-archive.pl -d ${upDate} -l ${JAWF_GEOTIFFS}/jobs/update-precipitation-archive.dates -f ${JAWF_GEOTIFFS}/jobs/update-precipitation-archive.dates
 
 if ( $status != 0) then
     set failure = 1
