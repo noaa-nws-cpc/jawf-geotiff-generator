@@ -97,13 +97,32 @@ A date set by the script (`${upDate}`) is added to a list of dates to update in 
 Creating GeoTIFFs
 ---------------
 
-### GrADS GeoTIFF Generating Scripts
+GeoTIFF data are created by the jawf-geotiff-generator application using the following steps:
+
+1. An ascii jobs configuration file is passed to the Perl switchboard script `$JAWF_GEOTIFFS/scripts/generate-geotiffs.pl`
+2. The switchboard script combines calendar information with the information from the jobs file to set up a list of GrADS commands to create the GeoTIFF data.
+3. The GrADS commands are executed using the CPC::SpawnGrads package from the CPC Perl5 Library. These commands involve executing GrADS scripts in batch mode with arguments to create the GeoTIFF products.
+4. The output from GrADS is captured and evaluated to check for errors, and the GeoTIFF files are confirmed to exist.
+
+### Jobs Files
+
+Information about what GeoTIFF products to create are passed to the Perl switchboard script using static, ascii-text jobs configuration files. Each GeoTIFF production job occupies a separate line in the file, and elements are delimited by pipes (`|`). Lines starting with `#` are considered comments and ignored. The first line of the file is the header line, which describes the required elements of each job:
+
+`gradsScript|ctlObs|ctlClimo|vartype|level|period|archiveRoot|fileRoot`
+
+- `gradsScript`: Identifies which GrADS script to run in the GrADS batch command. The Perl switchboard script changes into the `$JAWF_GEOTIFFS`/scripts directory before executing GrADS, so it is assumed that the script is located in that directory. Currently two GrADS scripts are available for use: `make-temperature-geotiffs.gs` and `make-precipitation-geotiffs.gs`.
+- `ctlObs`: Identifies the GrADS data descriptor (ctl) file to be used for the observational dataset (e.g., the real-time daily temperature or precipitation data). The full path to the ctl file must be supplied, but there are several allowed variables defined by the Perl switchboard that map to CPC operational paths.
+- `ctlClimo`: Identifies the GrADS data descriptor (ctl) file to be used for the climatology dataset (e.g., the daily temperature or precipitation climatology corresponding to the daily data described by `ctlObs`). The full path to the ctl file must be supplied, but there are several allowed variables defined by the Perl switchboard that map to CPC operational paths.
+- `vartype`: This field is passed to the GrADS scripts as an argument, and it allows the script to work with input data in different formats. It is not important if `gradsScript` is `make-precipitation-geotiffs.gs`, but it must still be set to something. See the GrADS GeoTIFF Generating Scripts section for more information.
+- `level`: This field is passed to the GrADS script as an argument, and provides the level (Z-axis) setting when loading the climatology data. This field is necessary because some climatologies are percentile-based, with the various percentiles delineated by the ctl file as levels. Typically the value is 1 (not a percentile climatology), or 50 (to set the climatology to the 50th percentile).
+- `period`: Defines the temporal window for the GeoTIFF summary. If it is set to an integer value (N), the GeoTIFF products will be N-day summaries. If it is set to `month`, then the products will be calendar monthly summaries. If set to `seasonal`, they will be 3-calendar monthly summaries. If set to `year`, they will be annual summaries. The ending date of the summary period(s) is determined by the `-date` argument to the Perl switchboard script. See below for more information.
+- `archiveRoot`: The directory where the GeoTIFFs will be written. Files will go into subdirectories that are based on the ending date of the summary period. See [README](../README.md) for more information.
+- `fileRoot`: The first part of the GeoTIFF output's filename. Since the GrADS scripts create multiple products, the product type is appended to this root filename.
+
+The application comes with several jobs files that create the set of GeoTIFF products required by JAWF. These can be found in `$JAWF_GEOTIFFS/jobs`.
 
 ### Perl Switchboard Script
 
-Jobs Files
----------------
+### GrADS GeoTIFF Generating Scripts
 
-### Format
 
-### Allowed Variables
