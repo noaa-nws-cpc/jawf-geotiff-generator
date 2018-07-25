@@ -174,16 +174,16 @@ if($date) {
 
 # Add dates from file if -list option supplied!
 
-if($datelist) {
+if($datelist and -s $datelist) {
 
-    if(-s $datelist and open(DATELIST,'<',$datelist)) {
+    if(open(DATELIST,'<',$datelist)) {
         my @datelist = <DATELIST>; chomp(@datelist);
         close(DATELIST);
 
         foreach my $row (@datelist) {
             my $day;
             eval   { $day = CPC::Day->new($row); };
-            if($@) { die "   In $datelist, $row is an invalid date! Reason: $@ - exiting"; }
+            if($@) { warn "   In $datelist, $row is an invalid date! Reason: $@ - not adding to update list\n"; }
             else   { push(@daylist,$day); }
         }
 
