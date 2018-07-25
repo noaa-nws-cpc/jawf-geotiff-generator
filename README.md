@@ -23,10 +23,12 @@ Overview
 Other Documents
 ---------------
 
-- [How to Install](docs/HOW-TO-INSTALL.md)
-- [How to Run](docs/HOW-TO-RUN.md)
-- [Contributing Guidelines](docs/CONTRIBUTING.md)
-- [Software License](LICENSE)
+| Document Link   | Description     |
+| --------------- | --------------- |
+| [How to Install](docs/HOW-TO-INSTALL.md)        | How to install `jawf-geotiff-generator` in a Linux environment |
+| [How to Run](docs/HOW-TO-RUN.md)                | An overview of how the application runs, with a description of each component |
+| [Contributing Guidelines](docs/CONTRIBUTING.md) | How to help improve this software! |
+| [Software License](LICENSE)                     | Department of Commerce Software License |
 
 Global Variables Used
 ---------------
