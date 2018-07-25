@@ -7,3 +7,7 @@
 *.log
 logs/
 work/
+
+# Update precip dates list #
+###############
+jobs/update-precipitation-archive.dates
