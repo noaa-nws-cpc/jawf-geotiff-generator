@@ -22,7 +22,7 @@ Overview
 
 This application summarizes daily gridded precipitation and temperature data created and maintained by the Climate Prediction Center for 1-day, 7-day, monthly, seasonal, and annual periods, and produces GeoTIFF products intended for use by the [Joint Agricultural Weather Facility (JAWF)](https://www.usda.gov/oce/weather). JAWF is a partnership between the National Weather Service's [Climate Prediction Center (CPC)](https://www.cpc.ncep.noaa.gov) and the United States Department of Agriculture's World Agricultural Outlook Board (WAOB).
 
-To monitor international weather and climate conditions and generate content for the [Weekly Weather and Crop Bulletin](https://www.usda.gov/oce/weather/pubs/Weekly/Wwcb/index.htm) publication, JAWF meteorologists utilize daily, weekly, monthly, seasonal, and annual summaries of precipitation (accumulated, anomalous, and percent of normal) and temperature (mean, departure from normal, extreme maximum, extreme minimum). The `jawf-geotiff-generator` creates these summaries from the daily data, and provides output in 0.25-degree GeoTIFF format with longitudes ranging from -180 to 180, to facilitate working with these data in GIS.
+To monitor international weather and climate conditions and generate content for the [Weekly Weather and Crop Bulletin](https://www.usda.gov/oce/weather/pubs/Weekly/Wwcb/index.htm) publication, JAWF meteorologists utilize daily, weekly, monthly, seasonal, and annual summaries of precipitation (accumulated, anomalous, and percent of normal) and temperature (mean, departure from normal, extreme maximum, extreme minimum). The `jawf-geotiff-generator` application creates these summaries from the daily data available at CPC, and provides output data in 0.25-degree GeoTIFF format with longitudes ranging from -180 to 180, in order to facilitate working with these data in GIS.
 
 CPC maintains Python-based applications that utilize ArcGIS to create graphical products for the WWCB based on these GeoTIFF data. Additionally, the GeoTIFFs themselves are available for use by CPC and USDA meteorologists.
 
@@ -32,7 +32,7 @@ Other Documents
 | Document Link   | Description     |
 | --------------- | --------------- |
 | [How to Install](docs/HOW-TO-INSTALL.md)        | How to install `jawf-geotiff-generator` in a Linux environment |
-| [How to Run](docs/HOW-TO-RUN.md)                | An overview of how the application runs, with a description of each component |
+| [How to Run](docs/HOW-TO-RUN.md)                | An overview of how the application works, with a description of each component |
 | [Contributing Guidelines](docs/CONTRIBUTING.md) | How to help improve this software! |
 | [Software License](LICENSE)                     | Department of Commerce Software License |
 
