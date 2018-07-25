@@ -33,11 +33,27 @@ Other Documents
 Global Variables Used
 ---------------
 
+- `$REALTIME_ONI` - The app location on your system
+- `$DATA_IN` - Root path to input data partition
+- `$DATA_OUT` - Root path to output data partition
+- `$WEB_OUT` - Root path to the Web mirror
+- `$FTP_OUT` - Root path to the FTP mirror
+
 Input Data
 ---------------
 
+### CPC High-Resolution Daily Temperature Grids
+
+### CPC Land-Ocean Merged Daily Temperature Grids
+
+### CPC Gauge-Satellite Merged Daily Precipitation Grids
+
 Output Data
 ---------------
+
+### Local Gauge-Satellite Merged Daily Precipitation Archive
+
+### GeoTIFF Archive
 
 Process Flow
 ---------------
