@@ -64,6 +64,8 @@ Output Data
 Process Flow
 ---------------
 
+![Flow diagram image](docs/jawf-geotiff-generator-flowchart.png)
+
 NOAA Disclaimer
 ===============
 
