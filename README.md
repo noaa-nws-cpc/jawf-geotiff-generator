@@ -48,11 +48,71 @@ The following global environment variables are utilized by `jawf-geotiff-generat
 Input Data
 ---------------
 
-### CPC High-Resolution Daily Temperature Grids
-
-### CPC Land-Ocean Merged Daily Temperature Grids
+Note: `${YYYY}` is the year, `${MM}` is the month number (01 = January, 02 = February, ..., 12 = December), and `${DD}` is the day of the month for which the daily data are valid.
 
 ### CPC Gauge-Satellite Merged Daily Precipitation Grids
+
+**Internal Location:** `/cpc/prcp/PRODUCTS/CMORPH_V0.x/BLD/0.25deg-DLY_EOD/GLB/${YYYY}/${YYYY}${MM}/CMORPH_V0.x_BLD_0.25deg-DLY_EOD_${YYYY}${MM}${DD}.gz`
+
+**Public Location:** [http://ftp.cpc.ncep.noaa.gov/precip/CMORPH_RT/BLD/](http://ftp.cpc.ncep.noaa.gov/precip/CMORPH_RT/BLD/)
+
+This [GrADS data descriptor file (ctl)](http://cola.gmu.edu/grads/gadoc/descriptorfile.html) describes the dimensions of the dataset (and is available for download [here)](http://ftp.cpc.ncep.noaa.gov/precip/CMORPH_RT/BLD/CTL/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl):
+
+```
+DSET ^../%y4/%y4%m2/CMORPH_V0.x_BLD_0.25deg-DLY_EOD_%y4%m2%d2
+OPTIONS template little_endian
+UNDEF -999.0
+TITLE Gauge - CMORPH_Adj Blended Analysis
+XDEF 1440 LINEAR   0.125 0.25
+YDEF  720 LINEAR -89.875 0.25
+ZDEF    1 LEVELS   1
+TDEF 9999 LINEAR 01Dec2016 1dy
+VARS 1
+bld  1 99 blended daily precip (mm) ending at GTS gauge EOD
+ENDVARS
+```
+
+A daily climatology based on the 1997-2017 period corresponding to these data is available within the application in `${JAWF_GEOTIFFS}/climos/precipitation`. See the GrADS ctl file `precipitation-climatology.ctl` for more information.
+
+### CPC High-Resolution Daily Temperature Grids
+
+These data are considered the primary source for temperature products delivered to JAWF. Data only exists over land, however, and gridpoints that partially span over water are set to missing values, which causes some coverage problems along coastlines and narrow land-masses. To resolve this, GeoTIFF products using a secondary temperature dataset, described below, are also created. Downstream GIS-based applications can underlay the secondary dataset to provide coverage along the coastlines.
+
+**Internal Location:** `$DATA_IN/cwlinks/temp/GLOBAL/hi_res/y${YYYY}/CPC_GLOBAL_T_V0.x_10min.lnx.${YYYY}${MM}${DD}`
+
+**Public Location:** Unknown
+
+This [GrADS data descriptor file (ctl)](http://cola.gmu.edu/grads/gadoc/descriptorfile.html) describes the dimensions of the dataset:
+
+```
+dset  ^y%y4/CPC_GLOBAL_T_V0.x_10min.lnx.%y4%m2%d2
+*
+options  little_endian template
+*
+title Global Tmax / Tmin Analyses
+*
+undef -999.0
+*
+xdef 2160 linear  0.083      0.1666666667
+*
+ydef 1080 linear  -89.917    0.1666666667
+*
+zdef 1 linear 1 1
+*
+tdef 20000 linear 01jan2014 1dy
+vars 6
+tmax     1  00 daily maximum temperature (C)
+nmax     1  00 number of reports for maximum temperature (C)
+tmin     1  00 daily minimum temperature (C)
+nmin     1  00 number of reports for minimum temperature (C)
+tave     1  00 daily mean temperature (C)
+nave     1  00 number of reports for mean temperature (C)
+ENDVARS
+```
+
+A daily climatology based on the 1981-2010 period corresponding to these data is available within the application in `${JAWF_GEOTIFFS}/climos/temperature/hi-res`. See the GrADS ctl file `temperature-climatology.ctl` for more information.
+
+### CPC Land-Ocean Merged Daily Temperature Grids
 
 Output Data
 ---------------
