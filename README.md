@@ -52,7 +52,9 @@ Note: `${YYYY}` is the year, `${MM}` is the month number (01 = January, 02 = Feb
 
 ### CPC Gauge-Satellite Merged Daily Precipitation Grids
 
-**Internal Location:** `/cpc/prcp/PRODUCTS/CMORPH_V0.x/BLD/0.25deg-DLY_EOD/GLB/${YYYY}/${YYYY}${MM}/CMORPH_V0.x_BLD_0.25deg-DLY_EOD_${YYYY}${MM}${DD}.gz`
+**CPC Development Location:** `/cpc/prcp/PRODUCTS/CMORPH_V0.x/BLD/0.25deg-DLY_EOD/GLB/${YYYY}/${YYYY}${MM}/CMORPH_V0.x_BLD_0.25deg-DLY_EOD_${YYYY}${MM}${DD}.gz`
+
+NOTE: This dataset has not yet been transitioned to CPC's operational environment
 
 **Public Location:** [http://ftp.cpc.ncep.noaa.gov/precip/CMORPH_RT/BLD/](http://ftp.cpc.ncep.noaa.gov/precip/CMORPH_RT/BLD/)
 
@@ -72,13 +74,13 @@ bld  1 99 blended daily precip (mm) ending at GTS gauge EOD
 ENDVARS
 ```
 
-A daily climatology based on the 1997-2017 period corresponding to these data is available within the application in `${JAWF_GEOTIFFS}/climos/precipitation`. See the GrADS ctl file `precipitation-climatology.ctl` for more information.
+A daily climatology based on the 1997-2017 period corresponding to these data is available within the application in `${JAWF_GEOTIFFS}/climos/precipitation`. See the GrADS ctl file `precipitation-climatology.ctl` for a description of these data.
 
-### CPC High-Resolution Daily Temperature Grids
+### CPC High-Resolution Daily Temperature Grids (Land-Only)
 
-These data are considered the primary source for temperature products delivered to JAWF. Data only exists over land, however, and gridpoints that partially span over water are set to missing values, which causes some coverage problems along coastlines and narrow land-masses. To resolve this, GeoTIFF products using a secondary temperature dataset, described below, are also created. Downstream GIS-based applications can underlay the secondary dataset to provide coverage along the coastlines.
+Note: Data coverage is problematic near coastlines. Therefore, in addition to geotiff creation using this dataset, geotiffs created using the coarser-resolution CPC merged land/ocean temperature dataset are also provided. JAWF operations using this secondary dataset as an underlay to "fill in" the coastline temperatures. See 
 
-**Internal Location:** `$DATA_IN/cwlinks/temp/GLOBAL/hi_res/y${YYYY}/CPC_GLOBAL_T_V0.x_10min.lnx.${YYYY}${MM}${DD}`
+**CPC Operational Location:** `$DATA_IN/cwlinks/temp/GLOBAL/hi_res/y${YYYY}/CPC_GLOBAL_T_V0.x_10min.lnx.${YYYY}${MM}${DD}`
 
 **Public Location:** Unknown
 
