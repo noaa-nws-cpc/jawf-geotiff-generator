@@ -82,7 +82,7 @@ Note: Data coverage is problematic near coastlines. Therefore, in addition to ge
 
 **CPC Operational Location:** `$DATA_IN/cwlinks/temp/GLOBAL/hi_res/y${YYYY}/CPC_GLOBAL_T_V0.x_10min.lnx.${YYYY}${MM}${DD}`
 
-**Public Location:** Unknown
+**Public Location:** None
 
 This [GrADS data descriptor file (ctl)](http://cola.gmu.edu/grads/gadoc/descriptorfile.html) describes the dimensions of the dataset:
 
