@@ -6,3 +6,5 @@ make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl
 #
 make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|1|seasonal|$DEFAULT_ARCHIVE|precipitation_seasonal
 #
+make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|1|tertile|$DEFAULT_ARCHIVE|precipitation_tertile
+#

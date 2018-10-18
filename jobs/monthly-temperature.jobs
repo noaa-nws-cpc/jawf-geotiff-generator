@@ -6,6 +6,8 @@ make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_
 #
 make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|maxmin|1|seasonal|$DEFAULT_ARCHIVE|temperature_seasonal
 #
+make-temperature-geotiffs.gs|$TEMP_ARCHIVE/CPC_GLOBAL_T_V0.x_10min.lnx.ctl|$APP_PATH/climos/temperature/hi-res/temperature-climatology.ctl|maxmin|1|tertile|$DEFAULT_ARCHIVE|temperature_tertile
+#
 # Secondary dataset - CPC merged temperature grids - to use as an over-ocean underlay
 #
 make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|1|month|$DEFAULT_ARCHIVE|temperature-ocean_monthly
@@ -15,4 +17,8 @@ make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|50|mon
 make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|1|seasonal|$DEFAULT_ARCHIVE|temperature-ocean_seasonal
 make-temperature-geotiffs.gs|$TMAX_OBS/grads.ctl|$TMAX_CLIM/grads.ctl|max|50|seasonal|$DEFAULT_ARCHIVE|temperature-ocean_seasonal
 make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|50|seasonal|$DEFAULT_ARCHIVE|temperature-ocean_seasonal
+#
+make-temperature-geotiffs.gs|$TMERGE_OBS/grads.ctl|$TMERGE_CLIM/tmean_clim_mean_01d.ctl|mean|1|tertile|$DEFAULT_ARCHIVE|temperature-ocean_tertile
+make-temperature-geotiffs.gs|$TMAX_OBS/grads.ctl|$TMAX_CLIM/grads.ctl|max|50|tertile|$DEFAULT_ARCHIVE|temperature-ocean_tertile
+make-temperature-geotiffs.gs|$TMIN_OBS/grads.ctl|$TMIN_CLIM/grads.ctl|min|50|tertile|$DEFAULT_ARCHIVE|temperature-ocean_tertile
 #
