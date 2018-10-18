@@ -266,13 +266,20 @@ JOB: foreach my $job (@jobs) {
         my $month = CPC::Month->new($day->Mnum,$day->Year);
         $start    = CPC::Day->new(int($month).'01');
         $end      = CPC::Day->new(int($month).$month->Length);
-	$dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
+	    $dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
     }
     elsif($period =~ /season/) {
         my $month3 = CPC::Month->new($day->Mnum,$day->Year);
         my $month1 = $month3 - 2;
         $start     = CPC::Day->new(int($month1).'01');
         $end       = CPC::Day->new(int($month3).$month3->Length);
+        $dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
+    }
+    elsif($period =~ /tertile/) {
+        my $month4 = CPC::Month->new($day->Mnum,$day->Year);
+        my $month1 = $month4 - 3;
+        $start     = CPC::Day->new(int($month1).'01');
+        $end       = CPC::Day->new(int($month4).$month4->Length);
         $dateDirs = join('/',$end->Year(),sprintf("%02d",$end->Mnum));
     }
     elsif($period =~ /year/) {
