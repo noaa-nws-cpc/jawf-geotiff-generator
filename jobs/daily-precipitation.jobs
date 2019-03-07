@@ -3,6 +3,8 @@ gradsScript|ctlObs|ctlClimo|vartype|level|period|dayshift|archiveRoot|fileRoot
 # CMORPH-Gauge merge 0.25 degree dataset
 #
 make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|1|1|0|$DEFAULT_ARCHIVE|precipitation_1day
+make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|1|1|1|$DEFAULT_ARCHIVE|precipitation_1day_us
 #
 make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|1|7|0|$DEFAULT_ARCHIVE|precipitation_7day
+make-precipitation-geotiffs.gs|$PRCP_ARCHIVE/CMORPH_V0.x_BLD_0.25deg-DLY_EOD.ctl|$APP_PATH/climos/precipitation/precipitation-climatology.ctl|all|1|7|1|$DEFAULT_ARCHIVE|precipitation_7day_us
 #
