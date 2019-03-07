@@ -244,7 +244,7 @@ JOB: foreach my $job (@jobs) {
 
     # --- Parse jobs settings into GrADS script args ---
 
-    my($gradsScript, $ctlObs, $ctlClimo, $vartype, $level, $period, $archiveRoot, $fileroot) = split(/\|/,$job);
+    my($gradsScript, $ctlObs, $ctlClimo, $vartype, $level, $period, $dayshift, $archiveRoot, $fileroot) = split(/\|/,$job);
     my($start, $end, $dateDirs);
 
     if($period =~ /^[+-]?\d+$/) {
@@ -290,6 +290,17 @@ JOB: foreach my $job (@jobs) {
     }
     else {
         warn "   The setting for period: $period is invalid - skipping job...\n";
+        $failedJobs++;
+        if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
+        next JOB;
+    }
+
+    if($dayshift =~ /^[+-]?\d+$/) {
+        $start = $start + $dayshift;
+        $end   = $end   + $dayshift;
+    }
+    else {
+        warn "   The setting for dayshift: $dayshift is invalid - skipping job...\n";
         $failedJobs++;
         if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
         next JOB;
