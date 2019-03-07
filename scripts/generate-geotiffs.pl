@@ -295,6 +295,10 @@ JOB: foreach my $job (@jobs) {
         next JOB;
     }
 
+    print "   Period defined as: $start to $end\n";
+
+    # --- Apply dayshift if gridded dataset dates do not match up well with period dates ---
+
     if($dayshift =~ /^[+-]?\d+$/) {
         $start = $start + $dayshift;
         $end   = $end   + $dayshift;
@@ -305,8 +309,6 @@ JOB: foreach my $job (@jobs) {
         if(openhandle(*FAILEDJOBS)) { warn "   Jobs settings with errors will not be added to failed list...\n"; }
         next JOB;
     }
-
-    print "   Period defined as: $start to $end\n";
 
     my $archiveDir  = "$archiveRoot/$dateDirs";
     my $geotiffRoot = "$archiveDir/$fileroot";
