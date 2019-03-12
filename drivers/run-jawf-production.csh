@@ -36,6 +36,10 @@ endif
 set mnum = `date +%m --d ${upDate}`
 set mday = `date +%d --d ${upDate}`
 
+# --- Set target date for 1-day shifted data for the U.S. ---
+
+set usDate = `date +%Y%m%d --d "${upDate} - 1day"`
+
 # --- Set up failure flag ---
 
 set failure = 0
@@ -61,6 +65,12 @@ if ( $status != 0) then
 endif
 
 perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/daily-precipitation.jobs -d ${upDate}
+
+if ( $status != 0) then
+    set failure = 1
+endif
+
+perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/daily-precipitation-us.jobs -d ${usDate}
 
 if ( $status != 0) then
     set failure = 1
