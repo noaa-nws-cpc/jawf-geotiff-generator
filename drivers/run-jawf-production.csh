@@ -78,20 +78,20 @@ endif
 
 # --- Monthly and seasonal geotiffs ---
 
-# Determine if upDate is the last day of a month!
+# Determine if usDate is the last day of a month!
 
-set mdayp1 = `date +%d --d "${upDate} + 1day"`
+set mdayp1 = `date +%d --d "${usDate} + 1day"`
 
 if ( $mdayp1 < $mday ) then
     echo
     echo Generating monthly and seasonal geotiffs
-    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-temperature.jobs -d ${upDate}
+    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-temperature.jobs -d ${usDate}
 
     if ( $status != 0 ) then
         set failure = 1
     endif
 
-    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-precipitation.jobs -d ${upDate}
+    perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/monthly-precipitation.jobs -d ${usDate}
 
     if ( $status != 0 ) then
         set failure = 1
@@ -102,13 +102,13 @@ if ( $mdayp1 < $mday ) then
     if ($mnum == '12' ) then
         echo
         echo Generating annual geotiffs
-        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-temperature.jobs -d ${upDate}
+        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-temperature.jobs -d ${usDate}
 
         if ( $status != 0 ) then
             set failure = 1
         endif
 
-        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-precipitation.jobs -d ${upDate}
+        perl ${JAWF_GEOTIFFS}/scripts/generate-geotiffs.pl -j ${JAWF_GEOTIFFS}/jobs/annual-precipitation.jobs -d ${usDate}
 
         if ( $status != 0 ) then
             set failure = 1
