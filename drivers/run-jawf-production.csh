@@ -33,12 +33,12 @@ else
    echo The date $upDate has been validated!
 endif
 
-set mnum = `date +%m --d ${upDate}`
-set mday = `date +%d --d ${upDate}`
-
 # --- Set target date for 1-day shifted data for the U.S. ---
 
 set usDate = `date +%Y%m%d --d "${upDate} - 1day"`
+
+set mnum = `date +%m --d ${usDate}`
+set mday = `date +%d --d ${usDate}`
 
 # --- Set up failure flag ---
 
